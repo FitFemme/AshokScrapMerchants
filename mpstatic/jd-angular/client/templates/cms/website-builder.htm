@@ -1,0 +1,135 @@
+<div class="slider-holder notranslate" ng-click="handleSliderClick($event);">
+    <div class="auto-rotate-wrapper" ng-if="isMobile">
+        <div class="inner-div">
+            <div class="auto-rotate-icon icon-customize"></div>
+            <div class="text-1">Please rotate your device</div>
+            <div class="text-2">We don't support landscape mode yet. Please go back to portrait mode for the best experience</div>
+        </div>
+    </div>
+    <div id="slider-pos"></div> <!-- Slider Holder for Common Sliders -->    
+    <!-- JD Premium Pop up Options-->
+    
+    <div ng-include="'/mpstatic/jd-angular/client/templates/cms/helpModal.htm'" 
+        ng-if="isMobile"
+    ></div>
+
+    <!-- jd-upload-image-slider ng-if condition -->
+
+    <edit-product-in-cms options="editProductOptions"></edit-product-in-cms>
+
+    <jd-universal-search ng-if="universalSearchOptions.executeDirective" options="universalSearchOptions"></jd-universal-search>
+
+    <div id="customHtmlBlockModal" class="modal fade customHtmlBlockModal"  tabindex="-1" role="dialog" aria-labelledby="customHtmlBlockModal" aria-hidden="true"  data-backdrop="static" ng-if="customHtmlBlock.loadModal">
+        <div class="modal-vertical-alignment-helper">
+            <div class="modal-dialog modal-vertical-align-center">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        Edit Custom HTML Block
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:0px">
+                            <i class="icon-close-thin cursor-pointer pull-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="modal-body-title">Enter HTML Code</div>
+                        <textarea class="customHtmlBlock-textarea" ng-model="customHtmlBlock.textArea" required></textarea>
+                    </div>
+                    <div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default pull-left" tabindex="10001" data-dismiss="modal">Cancel</button>
+                        <button class="btn pull-right save-html" ng-class="{'btn-primary': customHtmlBlock.textArea}" ng-click="saveCustomHtmlContentBlock()" ng-disabled="!customHtmlBlock.textArea">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dn" ng-init="customHtmlBlock.modalLoadCb()"></div>
+    </div>
+    <!-- AMENITY/SERVICES ADD/EDIT SLIDER + AMENITY/SERVICES setting slider + AMENITY/SERVICES slider overlay STARTS-->
+    <div class="animate-section-overlay" ng-if="sliderType == 'sortAmenitiesServicesSlider'||sliderType == 'editAmenitiesServicesSlider' || !!gloablOverlay.count"></div>
+    <div jd-animate-section="right" start-animation="settingPageSlider == 'jd-services'" slide-time="400" slider-width="{{isMobile ? '100%' : '320'}}" class="animate-div-right {{sliderType}} settings-slider jd-services" style="height: 100%;z-index: 10002;" ng-if="settingPageSlider == 'jd-services'">
+        <div class="jd-animate full-height animate-subsection-left" >
+            <slider-header options="settingSliderHeaderOptions" ></slider-header>
+            <div class="settings-slider-body">
+                <div class="white-BG">
+                        <label class="settingsCard settings-slider-content" style="box-shadow: none;" >
+                            <span class="pos-rel header-txt-style settingCardText">Display Enquiry Now button</span>
+                            <jd-switch-button switch-button-checked="serviceSettings.isShowEnquiryButton"></jd-switch-button>
+                        </label>
+                </div>
+                <div class="slider-footer cms-slider-footer-btns settings-slider-button padding0">
+                    <button type="button" class="btn pull-right save-btn btn-blue" jd-ripple-click="saveServiceSettings()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- AMENITY/SERVICES ADD/EDIT SLIDER + AMENITY/SERVICES setting slider + AMENITY/SERVICES slider overlay ENDS -->
+
+    <!-- BACKGROUND IMAGE / ANIMATION SLIDER HANDLING STARTS -->
+    <div ng-if="!!genericSlider.currentSection" ng-include="'/mpstatic/jd-angular/client/templates/common/genericSlider.htm'" ></div>
+    <!-- BACKGROUND IMAGE / ANIMATION SLIDER HANDLING ENDS -->
+
+    <div class="theme-background-slider-section cover-img-section" ng-if="themeBackgroundSlider.showSlider">
+        <input type="file" name="uploadProdImage" data-icon="false" class="uploadThemeImageControl uploadProdImage filestyle hide" id="themeInputImage" onchange="uploadFileForTheme()"/>
+        <div class="animate-section-overlay" ng-show="themeBackgroundSlider.showSlider"></div>
+        <div jd-animate-section="right" class="animate-slider animate-div-right jd-animate-new" start-animation="themeBackgroundSlider.showSlider" slide-time="200" slider-width="320">
+            <div class="jd-animate full-height slider-shadow">
+                <jd-moblie-header options="themeBackgroundSlider.headerOptions"> </jd-moblie-header>
+                <div class="slider-body">
+                    <div class="white-card-holder">
+                        <div class="align-flex">
+                            <div class="backaground-image-label jd-font-roboto-medium">Background Image for Web</div>
+                            <div ng-click="themeBackgroundSlider.removeImg('web')" class="backaground-icon-label cursor-pointer" ng-hide="showWebEdit">
+                                <i class="icon-trash"></i>
+                            </div>
+                        </div>
+                        <div class="link-holder" ng-click="openThemeBackgroundImageOptions($event);" ng-show="showWebEdit">
+                            <i class="icon-cameraNew"></i>
+                            <span class="cover-add-text">Add Website View</span>
+                        </div>
+                        <!-- <jd-cms-image-options options='themebackgroundImageDropdownOptions'></jd-cms-image-options> -->
+                        <div ng-hide="showWebEdit" class="cover-img">
+                            <!-- <img ng-src="{{themeBackgroundTempCopy}}"> -->
+                            <div class="background-image" ng-style="{'background-image':'url('+themeBackgroundTempCopy+')'}"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-btn-holder">
+                    <div class="footer {{themeBackgroundSlider.currentSection}} btn-primary" ng-click="themeBackgroundSlider.saveChanges()">
+                        Save
+                    </div>
+                </div>
+                <div class="theme-loading-container" ng-show="themeBackgroundSlider.showLoader">
+                    <svg class="circle-loader" width="40" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg" class="loader-style">
+                        <circle cx="20" cy="20" r="15"></circle>
+                    </svg> 
+                </div>
+            </div>
+            <div class="delete-background-image-modal fade in" ng-show="showdeleteThemeImageModal">
+                <div class="image-modal-content" >
+                    <div class="image-modal-header flex-center">
+                        <div class="icon-close-thin cursor-pointer flex-center justify-center" ng-click="showHideThemeImageModal(false)"></div>
+                    </div>
+                    <div class="image-modal-body flex-center justify-center flex-direction-column">
+                        <span>Do you want to delete the image?</span>
+                    </div>
+                    <div class="image-modal-footer cursor-pointer flex-center justify-center" ng-click="updateDeleteValues();">
+                        <span>Delete Image</span>
+                    </div>
+                </div>
+                <div class="image-modal-backdrop"></div>
+            </div>
+        </div>
+    </div>
+    <div class="jd-toast-holder {{gToast.customClass}}" ng-class="{'display-block':gToast.show,'animate-to-view':gToast.animateToView}" ng-click="$event.stopPropagation()">
+        <div ng-show="gToast.show" class="toastMsgStyle" ng-class="{'toast-with-btn':gToast.toastBtn.show}">
+            <div class="toast-msg">
+                <div ng-bind="gToast.msg"></div>
+                <div ng-if="gToast.subText" ng-bind="gToast.subText"></div>
+            </div>
+            <div class="toast-btn" ng-class="gToast.toastBtn.btnClass" ng-show="gToast.toastBtn.show" ng-click="gToast.toastBtn.click()">{{gToast.toastBtn.text}}</div>
+        </div>
+    </div>
+</div>
+<jd-premium-popup options="global.premiumPopupOptions"></jd-premium-popup>

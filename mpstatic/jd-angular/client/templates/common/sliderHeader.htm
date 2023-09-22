@@ -1,0 +1,24 @@
+<div class="jd-mobile-header slider-header-new {{options.class}}" ng-class="{'isMobileView':isMobile}">
+	<div class="content-holder" ng-class="{'wider-section':options.widerSection}">
+		<div class="header-left-section">
+			<div class="button-holder-section">
+				<div ng-repeat="item in options.leftButtonArray" class="button-holder btn-animate-hover"
+					jd-ripple-click="options.onClick(item)">
+					<i class="{{item.iconClass}}"></i>
+				</div>
+			</div>
+		</div>
+		<div class="header-center-section">
+			<div class="header-title jd-two-line-ellipsis" ng-bind="options.title"></div>
+			<div ng-if="options.subtitle" ng-class=options.subTitleCustomClass ng-bind="options.subtitle"></div>
+		</div>
+		<div class="header-right-section">
+			<div class="button-holder-section">
+				<div ng-repeat="item in options.rightButtonArray" class="button-holder btn-animate-hover"
+					jd-ripple-click="options.onClick(item)">
+					<i class="{{item.iconClass}}"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

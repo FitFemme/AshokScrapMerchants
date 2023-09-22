@@ -1,0 +1,122 @@
+<div>
+    <div class="jd-mobile-header position-fixed {{options.headerClass}}"
+        ng-class="{'background-white': options.setSearchBox,'box-shadow': attachShadow,'isMobileView':isMobile}">
+        <div class="content-holder" ng-class="{'wider-section':options.showBurgerIcon}">
+            <!--HEADER LEFT SECTION -->
+            <div class="header-left-section" ng-class="{'header-hideTitle':options.hideTitle}">
+                <div ng-hide="options.showNoIconOnLeft || ((options.leftSideIcon=='icon-HDRhelp') && isIpadApp)"
+                    class="button-holder-section"
+                    ng-class="{'header-single-icon':!options.showBurgerIcon && options.showBackIcon,'header-two-icon':options.showBurgerIcon && options.showBackIcon}">
+                    <div ng-show="options.showBackIcon && !options.setSearchBox"
+                        jd-ripple-click="onBackButtonClick($event)" class="button-holder"
+                        ng-class="{'btn-animate-hover':((!isMobile && !isIpad) && !options.disableHover)}"
+                        ripple-effect="ripple-white-burger" ripple-overflow="false">
+                        <i class="{{options.leftSideIcon}}"
+                            ng-class="{'text-black' :  options.setSearchBox, 'icon-HDRback': !options.leftSideIcon}"></i>
+                    </div>
+                    <div class="button-holder"
+                        ng-class="{'btn-animate-hover':((!isMobile && !isIpad) && !options.disableHover)}"
+                        ng-show="options.showBackIcon && options.setSearchBox" ripple-effect ripple-overflow="false"
+                        jd-ripple-click="onBackButtonClick($event)" jd-ripple-color="rgb(125,125,125)">
+                        <i class="{{options.leftSideIcon}} text-black"
+                            ng-class="{'icon-HDRback': !options.leftSideIcon}"></i>
+                    </div>
+                    <div class="button-holder" ng-show="(!options.showBackIcon || options.showBurgerIcon) && !options.isServiceModule"
+                        ripple-effect="ripple-white-burger" ripple-overflow="false" jd-ripple-click="showHomeBar(400)"
+                        ng-class="{'btn-animate-hover':!isMobile,'two-btn-padding-left':options.showBurgerIcon}">
+                        <i class="icon-HDRburger icon-HDRburger1"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!--HEADER CENTER SECTION -->
+            <div class="header-center-section" ng-class="{'paddingL0': options.setSearchBox}">
+                <div ng-show="!options.hideTitle"
+                    ng-class="{'primary-header':options.headerSubTitle,'ellipsis-one-line':options.oneLineHeader,' font14':options.headerSubTitle}"
+                    class="header-title">{{options.headerTitle | jdLang}}</div>
+                <span ng-bind="options.headerSubTitle" ng-show="options.headerSubTitle && !options.hideTitle"
+                    class="child-header header-text-ellipsis"></span>
+                <span class="child-header text-ellipsis" ng-show="customHeaderSubTitleTemplate"
+                    ng-include="customHeaderSubTitleTemplate"></span>
+                <div class="input-group full-width" ng-show="options.hideTitle">
+                    <input type="text" maxlength="{{options.maxlength}}" ng-model="searchKey"
+                        placeholder="{{options.placeHolderText}}" class="custom-input jd-font-roboto-light"
+                        jd-slow-keyup="searchData($event)" ng-change="searchData()" ng-focus="onFocus()"
+                        ng-class="options.inputCustomClass" id="{{searchBoxId}}" autocomplete="off">
+                </div>
+            </div>
+
+            <!--HEADER RIGHT SECTION -->
+            <div class="header-right-section">
+                <div class="button-holder-section">
+                    <div class="button-holder filter-icon" ng-show="options.showFilterIcon"
+                        jd-ripple-click="onFilterIconClick()" ripple-effect="ripple-white-burger"
+                        ripple-overflow="false"
+                        ng-class="{'btn-animate-hover':!isMobile,'two-btn-padding-right':isMobile}">
+                        <i class="icon-filterNew"></i>
+                        <div class="count-badge red-badge small filter-count" ng-show="options.filterText">
+                            {{options.filterText}}</div>
+                    </div>
+                    <div class="right-icon-section" ng-repeat="iconInfo in options.rightIconsData"
+                        jd-ripple-click="onRightIconClick(iconInfo, $event)"
+                        ng-class="{'disabled disable-btn' : iconInfo.disablebtn,'left-side-icon':($first&&!$last),'border-radius-unset':iconInfo.rightBtnText}"
+                        ng-show="iconInfo.iconClass || iconInfo.rightBtnText" ripple-effect="ripple-white-burger"
+                        ripple-overflow="false">
+                        <div class="button-holder" ng-show="iconInfo.iconClass"
+                            ng-style="{'color':options.noInlineColor?'':''}" ripple-effect="ripple-white-burger"
+                            ripple-overflow="false"
+                            ng-class="{'btn-animate-hover':!isMobile,'two-btn-padding-left':options.rightIconsData.length > 1 && !options.showFilterIcon}">
+                            <i class="{{iconInfo.iconClass}}"></i>
+                            <div class="selected-status-div" ng-show="options.showSelectedStatus"></div>
+                        </div>
+                        <div class="button-holder text-holder" ng-show="iconInfo.rightBtnText"
+                            ripple-effect="ripple-white-burger" ripple-overflow="false">
+                            <div class="right-btn-text btn-animate-hover"
+                                ng-style="{'color':options.noInlineColor?'':''}">{{iconInfo.rightBtnText}}</div>
+                        </div>
+                    </div>
+                    <!-- <div class="button-holder small-header-loader" ng-show="options.showSearchLoader"></div> -->
+                    <div class="button-holder" ng-class="{'btn-animate-hover':!isMobile}"
+                        ng-show="options.setSearchBox && searchKey.length > 0 && !options.showSearchLoader"
+                        jd-ripple-click="options.clearSearchedData()" ripple-overflow="false" ripple-effect jd-ripple-color="rgb(125,125,125)"
+                        ripple-overflow=" false">
+                        <i class="icon-HDRcross"></i>
+                    </div>
+                    <div class="button-holder" ng-show="options.triggerPhoneCallNo"
+                        ng-class="{'btn-animate-hover':!isMobile}">
+                        <a href="tel:{{options.triggerPhoneCallNo}}"><i class="icon-HDRcall"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pos-rel walkthrough-help-menu" ng-if="options.manualOptions">
+            <div class="help-submenu-container" ng-show="isShowHelpSubMenu">
+                <ul class="help-submenu-list">
+                    <li class="help-submenu" ng-repeat="item in manualOptions"
+                        jd-ripple-click="onManualOptionsClick($event, item)">
+                        <span> {{item.name}} </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="pos-rel header-popover-menu" ng-class="options.popoverListCustomClass"
+            ng-if="options.popoverList && options.popoverList.length">
+            <div class="help-submenu-container mobile-header-popover" ng-class="{hide: !options.showPopover}">
+                <ul class="help-submenu-list">
+                    <!-- TODO remove item.name send item only -->
+                    <li jd-ripple-click="options.showPopover = !options.showPopover;options.onPopoverItemSelect(item.name,item)"
+                        class="help-submenu" ng-repeat="item in options.popoverList">
+                        <i ng-class="item.iconClass"></i>
+                        <span ng-hide="options.customPopoverListkey">{{item.name}}</span>
+                        <span ng-show="options.customPopoverListkey">{{item[options.customPopoverListkey]}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div ng-if="!!options.customTemplateId">
+            <div ng-include="options.customTemplateId"></div>
+        </div>
+    </div>
+    <div ng-if="!options.fakeHeaderHide" class="fake-div header-height"></div>
+</div>

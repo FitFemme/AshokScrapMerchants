@@ -1,0 +1,320 @@
+<div class="jd-form {{formInfo.customClass}}" ng-class="{'touch-device':isTouchDevice,'form-as-row':formInfo.allowFieldsOnSameLine}">
+	<div ng-repeat="formElement in formInfo.formElements" class="form-group pos-rel {{formElement.customClass}}" ng-class="{'jd-error':formElement.showError, 'last-group': $last, 'jd-warning':formElement.showWarning}" ng-hide="formElement.hide" ng-init="formElement.$index = $index">
+		<div ng-if="formElement.type == 'formTitle'" class="form-title">
+			<label>
+				{{formElement.labelText}}
+			</label>
+			<jd-custom-popover ng-if='!!formElement.popoverText' options="formElement" ></jd-custom-popover>
+		</div>
+		<div ng-if="formElement.type == 'mobileNumber'">
+				<div class="label-holder" ng-hide="formElement.hideLabel">
+					<label class="form-control-label">MOBILE NUMBER</label>
+				</div>
+				<div class="mobile-input-holder">
+					<div class="mobile-country-code">+91</div>
+					<input class="form-control" jd-regex-validation="{{formElement.regexExp || 'mobileNumberRegex'}}" type="tel" placeholder="" maxlength="10"  ng-model="formElement.value" autocomplete="off" ng-change="formControlChange(formElement,event)" ng-blur="formControlBlur(formElement,event)">
+					<span ng-if="formElement.showCross" ng-hide="formElement.value.length == 0" class="icon-close-thin input-cross-btn btn-animate-hover" ng-click="onCrossClick(formElement)"></span>
+				</div>
+				<div class="error-message" ng-show="formElement.showError" ng-bind="formElement.errorMsg"></div>
+		</div>
+		<div ng-if="formElement.type == 'mobileNumberWithFlag'">
+			<div class="label-holder">
+				<label class="form-control-label">MOBILE NUMBER</label>
+			</div>
+			<div class="mobile-input-holder">
+				<div class="country-flag-holder">
+					<span  ng-click = "selectCountry(formElement)" class = "flag-icon">
+						<i class="sprite sprite-{{formElement.flagIcon}} flag"></i>
+					</span>
+					<span class="arrow-container" ng-click = "selectCountry(formElement)">
+						<i ng-class="formElement.showLeftIcon"></i>
+					</span>
+				</div>
+				<span class="isd-class">+{{formElement.isd}}</span>
+				<input class="form-control length-{{formElement.isd.toString().length}}" jd-regex-validation="formElement.regexExp"  type="tel" placeholder="" ng-change="formControlChange(formElement,event)" ng-blur="formControlBlur(formElement,event)" ng-model="formElement.value"  ng-focus="formControlFocus(formElement, event)" autocomplete="off">
+			</div>
+			<div class="error-message" ng-show="formElement.showError" ng-bind="formElement.errorMsg"></div>
+			<div ng-if="isMobile" jd-animate-section="right" class="jd-animate animate-slider country-slider" start-animation="showCountrySlider" slide-time="500" slider-percent="100" slider-width="{{sliderOptions.sliderWidth}}" disable-body-scroll="{{sliderOptions.disableBodyScroll}}"  on-animate-complete="">
+		        <div class="jd-animate full-height">
+		            <div class="slider-body">
+		            	<jd-select-country options="selectCountryMobileOptions"></jd-select-country>
+		            </div>
+		        </div>
+		    </div>
+		    <div ng-if="!isMobile">
+		    	<jd-select-country options="selectCountryWebOptions"></jd-select-country>
+		    </div>
+		</div>
+		<div ng-if="formElement.type == 'textArea' || formElement.type == 'text'||formElement.type == 'password' || formElement.type == 'number' || formElement.type == 'tel'">
+			<div ng-if="!!formElement.labelText" class="label-holder">
+				<label class="form-control-label" ng-class="formElement.labelClass">{{formElement.labelText}}</label>
+				<jd-custom-popover ng-if='!!formElement.popoverText' options="formElement" ></jd-custom-popover>
+			</div>
+			<div ng-if="formElement.type == 'textArea'">
+				<textarea ng-change="formControlChange(formElement,event)" min-height="69px" jd-resize-textarea ng-blur="formControlBlur(formElement,event)" ng-model="formElement.value" placeholder="{{formElement.placeHolder}}" maxlength="{{formElement.maxlength}}" jd-set-focus="formElement.focusOnSearch" set-focus-timeout="{{formElement.focusTimeout||300}}" class="form-control" ng-focus="formControlFocus(formElement, event)" jd-field-visible-on-focus elem-holder="{{formElement.scrollElemHolder}}" visibility-padding="{{formElement.visibilityPadding}}" visibility-timeout="{{formElement.visibilitytimeOut}}" ng-trim="false">
+				</textarea>
+				<div class="char-count" ng-show="formElement.maxlength">{{formElement.value.length || 0}} of {{formElement.maxlength}} Characters</div>
+				<div class="error-message" ng-show="formElement.showError" ng-bind="formElement.errorMsg">
+					
+				</div>
+			</div>
+			<div ng-if="formElement.type == 'text' ||formElement.type == 'password' || formElement.type == 'number' || formElement.type == 'tel'" ng-class="{'jd-error':formElement.showError,'enabled':formElement.isEnabled}" class="form-control-holder">
+					<input 
+						class="form-control" 
+						type="{{formElement.type}}" 
+						maxlength = "{{formElement.maxlength}}" 
+						ng-change="formControlChange(formElement,event)" 
+						ng-paste="formElement.onPaste($event)"
+						ng-blur="formControlBlur(formElement,event)" 
+						ng-model="formElement.value" 
+						jd-set-focus="formElement.focusOnSearch" 
+						set-focus-timeout="{{formElement.focusTimeout||300}}" 
+						set-false="true" placeholder="{{formElement.placeHolder}}" 
+						jd-regex-validation="{{formElement.regexExp || (formElement.numberOnly ? 'onlyNumber' : 'defaultRegex')}}" 
+						regex-as-param="{{formElement.regexExp}}" 
+						ng-focus="formControlFocus(formElement, event)" 
+						ng-disabled="formElement.isDisabled" 
+						ng-readonly="formElement.readOnly" 
+						jd-field-visible-on-focus 
+						elem-holder="{{formElement.scrollElemHolder}}" 
+						visibility-padding="{{formElement.visibilityPadding}}" 
+						document-scroll="{{formElement.documentScroll}}"
+						jd-enter="formElement.handleOnEnter()"
+						placeholder="{{formElement.placeholder}}"
+						ng-click="formHandleClick(formElement,event)"
+						tabindex="{{formElement.tabIndex || 0}}"
+					/>
+					<div ng-if="formElement.pasteSection" ng-hide="formElement.value.length != 0" class="paste-section" ng-click="formElement.pasteSection.onClick()">Paste</div>
+					<span ng-if="formElement.showCross" ng-hide="formElement.value.length == 0" class="icon-close-thin input-cross-btn btn-animate-hover" ng-click="onCrossClick(formElement)"></span>
+					<span ng-if="formElement.rightArrowIcon" class="icon-pagination-right input-cross-btn btn-animate-hover" ng-click="formHandleClick(formElement,event)"></span>
+					<div class="error-message" ng-show="formElement.showError" ng-bind="formElement.errorMsg">
+					
+					</div>
+					<div ng-show="formElement.showLoader" class="form-control-loader">
+						<svg class="circle-loader" width="20" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="10" cy="10" r="8"></circle>
+						</svg>
+					</div>
+			</div>
+		</div>
+		<div ng-if="formElement.type == 'toggle'" >
+			<div class="form-control-toggle clearfix" ng-class="{'toggle-on-left':formElement.toggleOnLeft}">
+				<div class="toggle-button">
+					<jd-switch-button class="pos-rel" jd-change="formElement.onChange(value)" editable="true" switch-button-checked="formElement.value" tab-index="{{formElement.tabIndex || 0}}"></jd-switch-button>
+				</div>
+				<div class="toggle-button-label-holder">
+					<div class="cursor-pointer toggle-button-label">
+						<span ng-click="onChangeToggle(formElement)" ng-bind-html-unsafe="formElement.labelText"></span>
+						<jd-custom-popover ng-if='formElement.popoverText' options="formElement" ></jd-custom-popover>
+					</div>
+				</div>
+			</div>
+			<div class="separator-line" ng-hide="formElement.hideSeperatorLine"></div>
+		</div>
+		<div ng-if="formElement.type == 'dropdown'" class="form-dropdown" ng-class="{'jd-error':formElement.showError}">
+			<div ng-show="formElement.labelText" class="label-holder">
+				<label class="form-control-label">{{formElement.labelText}}</label>
+				<jd-custom-popover ng-if='!!formElement.popoverText' options="formElement" ></jd-custom-popover>
+			</div>
+			<div class="drop-down pos-rel" ng-if="formElement.isSystemDefault">
+				<select ng-model="formElement.value" ng-options="{{formElement.ngOptionsExp}}" style="border-radius: 5px;" class="drop-down-input">				
+				</select>
+				<span class="font16 icon-down-style hide-arrow icon-pagination-down" ng-class="{'icon-pagination-right': iconRight, 'icon-pagination-down': !iconRight}"></span>
+			</div>
+			<jd-drop-down ng-if="!formElement.isSystemDefault" ng-model="formElement.value" label-key="{{formElement.labelKey}}" model-key="{{formElement.modelKey}}" option-list="formElement.dropdownValues" jd-update="formElement.onChange()" jd-focus-on-drop-down="formElement.onFocus(dropDownClass)" jd-blur="formControlBlur(formElement)" jd-open="formElement.onOpenDropDown(dropDownClass,action)" class="" custom-template="{{formElement.customTemplate}}" placeholder="{{formElement.placeholder}}" custom-input-template="{{formElement.customInputTemplate}}" is-disabled="formElement.isDisabled" tab-index="{{formElement.tabIndex}}"></jd-drop-down>
+			<div class="error-message" ng-show="formElement.showError" ng-bind="formElement.errorMsg"></div>
+		</div>
+		<div class="separator-line marginT25" ng-if="formElement.type == 'separatorLine'" ng-hide="formElement.hideSeperatorLine">
+		</div>
+		<div ng-if="formElement.type == 'button'" class="form-button"> 
+				<button class="btn btn-common" jd-ripple-click="formElement.onButtonClick()">
+					<span ng-hide="formElement.showLoader">{{formElement.btnText}}</span>
+					<span ng-show="formElement.showLoader" class="loader"></span class="form-button-loader"></span></span>
+				</button>
+		</div>
+		<div ng-if="formElement.type=='list'" class="list-content-holder"  ng-class="{'jd-error':formElement.showError}">
+			<div ng-repeat="item in formElement.list" class="list-item item-{{$index}}" ng-class="{'pointer':item.isClickable,'item-err':item.showError}" jd-ripple-click="formElement.onClick(item)"  ng-hide="item.hide">
+				<div class="data-holder">
+					<div class="left-sec">
+						<div class="{{item.iconOnLeft}} left-icon" ng-show="item.iconOnLeft"></div>
+						<label class="form-control-label">{{item.labelText}}</label>
+					</div>
+					<div class="right-sec">
+						<jd-custom-popover ng-if="item.showPopover" options="item" ></jd-custom-popover>
+						<span ng-repeat="iconData in item.iconOnRight" class="{{iconData.icon}} right-icon" ng-hide="iconData.hide"></span>
+					</div>
+				</div>
+			</div>
+			<div class="error-message" ng-show="formElement.showError" ng-bind="formElement.errorMsg"></div>
+		</div>
+		<div ng-init="formInfo.execJdFileUpload = true" ng-if="formElement.type=='file'" class="form-file-holder" ng-class="{'jd-error':formElement.showError}">
+			<div class="label-btn-holder">
+				<div class="label-holder" ng-show="formElement.labelText">
+					<label class="form-control-label">{{formElement.labelText}}</label>
+					<jd-custom-popover ng-if="formElement.showPopover" options="formElement" ></jd-custom-popover>
+				</div>
+				<div class="btn-animate-hover remove-btn-parent" ng-click="removeFile(formElement)">
+					<span class="remove-file-btn color-lightBlue" ng-hide="!formElement.value ||formElement.hideRemoveBtn">REMOVE</span>
+				</div>
+			</div>
+			<div class="data-section">
+				<div ng-show="formElement.value" class="full-height file-value-holder" ng-click="onFileClick(formElement)" ng-class="{'file-overlay':formElement.showOverlayOnHover}">
+					<span class="{{formElement.overlayicon}} overlay-icon" ng-if="formElement.overlayicon && !isMobile"></span>
+					<div class="defaultImageLarge" jd-load-image data-dimension="{{formElement.dimension}}" data-path="{{formElement.value}}" image-type="{{formElement.moduleType}}" ng-model="formElement.value" data-height="{{formElement.height || 138}}" data-width="{{formElement.width||288}}" ng-controller="jdLoadImageController" ng-hide="DOCS_EXT_ICON_MAP[formElement.valueType]">
+					</div>
+					<div ng-show="DOCS_EXT_ICON_MAP[formElement.valueType]" class="full-height docs-icon-holder" ng-class="formElement.valueType">
+						<img ng-src="{{DOCS_EXT_ICON_MAP[formElement.valueType].img}}" ng-show="DOCS_EXT_ICON_MAP[formElement.valueType].img"/>
+						<span class="{{DOCS_EXT_ICON_MAP[formElement.valueType].icon}} icon-style" ng-show="DOCS_EXT_ICON_MAP[formElement.valueType].icon"></span>
+					</div>
+	                <div class="download-section" ng-show="formElement.showOverlayOnHover && !formElement.openPreview">
+	                	<span class="icon-download"></span>
+	                </div>
+                </div>
+                <div ng-show=formElement.isLoading class="loader-holder full-height dashed-border">
+                	<svg xmlns="http://www.w3.org/2000/svg" width="40px" height="40px" class="upload-loader">
+						<circle cx="20px" cy="20px" r="12px" class="circle"></circle>
+					</svg>
+				</div>
+				<div class="upload-btn-holder full-height dashed-border" ng-hide="formElement.value || formElement.isLoading" ng-click="uploadFile(formElement)" jd-ripples>
+					<button class="btn file-upload-btn jd-btn-primary {{formElement.buttonClass}}" ripple-effect ripple-overflow="true"  data-retainPosition="true">
+						<span>{{formElement.uploadBtnTxt || "Upload File"}}</span>
+					</button>
+				</div>
+			</div>
+			<div class="error-message" ng-show="formElement.showError" ng-bind="formElement.errorMsg"></div>
+			<!-- <jd-multiple-file options="formElement" upload-file-options="uploadFileOptions"></jd-multiple-file> -->
+		</div>
+		<div ng-if="formElement.type=='notification'">
+			<div jd-html-include="{{formElement.html}}" bind-html="true" class="html-holder"></div>
+		</div>
+		<div ng-if="formElement.type=='date'">
+			<div class="label-holder" ng-show="formElement.labelText">
+				<label class="form-control-label">{{formElement.labelText}}</label>
+			</div>
+			<jd-web-single-datepicker options="formElement" class="margin0" ng-if="!isMobile"></jd-web-single-datepicker>
+			<div ng-if="isMobile" class="jd-single-datepicker pos-rel">
+				<input class="form-control" type="date" ng-model="formElement.value"/>
+				<i class="icon-calenderForm jd-color-inherit jd-font-inherit icon-Calender-class"></i>
+			</div>
+		</div>
+		<div ng-if="formElement.type=='checkbox'">
+			<label for="{{formElement.eleId || 'form-cb-'+formElement.$index}}" class="label-for-checkbox">
+				<jd-custom-checkbox ng-model="formElement.value" checkbox-id="{{formElement.eleId || 'form-cb-'+formElement.$index}}"  circular-cb="formElement.isCircular" jd-cb-change="formElement.onChange(val,checkboxId)" is-disabled="formElement.isDisabled"></jd-custom-checkbox>
+				<span ng-class="formElement.labelClass">{{formElement.labelText}}</span>
+			</label>
+		</div>
+		<div ng-if="formElement.type=='input-with-unit-drop-down'">
+			<jd-atomic-input-dropdown field-info="formElement"></jd-atomic-input-dropdown>
+		</div>
+		<div ng-if="formElement.type=='radioTabs'">
+			<div class="label-holder" ng-show="formElement.labelText">
+				<label class="form-control-label">{{formElement.labelText}}</label>
+			</div>
+			<slider-switch options="formElement"></slider-switch>
+			<!-- <div ng-show="formElement.bottomText" ng-bind="formElement.bottomText" class="element-bottom-text"></div> -->
+		</div>
+		<div ng-if="formElement.type == 'customTemplate'" ng-include="formElement.customTemplateId"></div>
+		<div ng-if="formElement.type == 'input-with-icon'">		
+			<div class="mobile-input-holder">
+				<div class="mobile-country-code"><i class="{{formElement.iconClass}}"></i></div>
+                    <input 
+    					class="form-control" 
+    					jd-regex-validation="{{formElement.regexExp || 'onlyNumber'}}" 
+    					regex-as-param="{{formElement.regexExp}}" 
+    					placeholder="{{formElement.placeholder}}" 
+    					maxlength="{{formElement.maxLength  || 10}}"   
+    					ng-change="formControlChange(formElement,event)" 
+    					ng-blur="formControlBlur(formElement,event)" 
+    					ng-model="formElement.value" 
+    					autocomplete="off" 
+    					type="{{formElement.inputType}}" 
+    					ng-focus="formControlFocus(formElement, event)"
+    					document-scroll="{{formElement.documentScroll}}"
+    					jd-field-visible-on-focus
+    				 	elem-holder="{{formElement.elemHolder}}"
+    				 	visibility-padding="{{formElement.visibilityPadding}}" 
+					>
+				</div>
+			<div class="error-message" ng-show="formElement.showError" ng-bind="formElement.errorMsg"></div>
+		</div>
+		<div ng-if="formElement.type == 'input-for-money'">
+			<label ng-show="formElement.label" ng-class="formElement.labelErrorClass" class={{formElement.labelClass}}>{{formElement.label}}</label>
+			<div class="mobile-input-holder">
+				<div class="mobile-country-code" ng-show="formElement.iconClass"><i class="{{formElement.iconClass}}"></i></div>
+				<input 
+					class="form-control input-for-money"
+				 	regex-as-param="{{formElement.regexExp}}" 
+				 	placeholder="{{formElement.placeholder}}" 
+				 	maxlength="{{formElement.maxLength  || 13}}"   
+				 	ng-change="formControlChange(formElement,event)" 
+				 	ng-blur="formControlBlur(formElement,event)" 
+				 	ng-model="formElement.value" 
+				 	autocomplete="off" 
+					jd-web-money
+					jd-regex-validation="{{formElement.regexValidation}}"
+				 	int-range = "{{formElement.id && formElement.id == 'inputAddon' ? 7 : formElement.maxLength || 10}}"
+				 	jd-field-visible-on-focus
+				 	elem-holder="{{formElement.elemHolder}}"
+				 	visibility-padding="{{formElement.visibilityPadding}}" 
+					jd-set-focus="formElement.showFocus"
+					set-focus-timeout="{{formElement.focusTimeout||300}}"
+					set-false="true"
+					ng-disabled = "formElement.isDisabled" 
+					ng-class="formElement.customClass"
+					ng-focus="formControlFocus(formElement, event)"
+					id="{{formElement.id}}"
+					document-scroll="{{formElement.documentScroll}}"
+					inputmode="{{formElement.inputMode}}"
+					allow-negative="{{formElement.allowNegative}}"
+				>				
+			</div>
+			<div class="error-message" ng-class="formElement.labelErrorClass" ng-show="formElement.showError" ng-bind="formElement.errorMsg"></div>
+		</div>
+		<div ng-if="formElement.type == 'input-for-currency'">
+			<label ng-show="formElement.label" ng-class="formElement.labelErrorClass" class={{formElement.labelClass}}>{{formElement.label}}</label>
+			<div class="mobile-input-holder">
+				<div class="mobile-country-code" ng-show="formElement.iconClass"><i class="{{formElement.iconClass}}"></i></div>
+				<input 
+					type = "tel"
+					class="form-control input-for-money"
+				 	regex-as-param="{{formElement.regexExp}}" 
+				 	placeholder="{{formElement.placeholder}}" 
+				 	maxlength="{{formElement.maxLength  || 10}}"   
+				 	ng-change="formControlChange(formElement,event)" 
+				 	ng-blur="formControlBlur(formElement,event)" 
+					ng-model="formElement.value"
+					allow-negative="formElement.allowNegative" 
+				 	autocomplete="off" 
+				 	jd-currency-input
+				 	jd-field-visible-on-focus
+				 	elem-holder="{{formElement.elemHolder}}"
+				 	visibility-padding="{{formElement.visibilityPadding}}" 
+					jd-set-focus="formElement.showFocus"
+					set-focus-timeout="{{formElement.focusTimeout||300}}"
+					set-false="true"
+					ng-disabled = "formElement.isDisabled" 
+					ng-class="formElement.customClass"
+					ng-focus="formControlFocus(formElement, event)"
+					id="{{formElement.id}}"
+					document-scroll="{{formElement.documentScroll}}"
+				>				
+			</div>
+			<div class="error-message" ng-class="formElement.labelErrorClass" ng-show="formElement.showError" ng-bind="formElement.errorMsg"></div>
+		</div>
+		<div ng-if="formElement.type == 'quantity-dropdown'">
+			<label ng-show="formElement.label" ng-class="{labelError:formElement.labelErrorClass}" class={{formElement.labelClass}}>{{formElement.label}}</label>
+			<div>
+				<jd-quantity options="formElement.quantityOptions"></jd-quantity>
+                <div id="popupmodal" class="popup-modal"></div>
+			</div>
+			<div class="error-message" ng-class="{labelError:formElement.labelErrorClass}" ng-show="formElement.showError" ng-bind="formElement.errorMsg"></div>
+		</div>
+		<div ng-if="formElement.type == 'new-dropdown'">
+			<div>
+				<drop-down options="formElement.dropOptions"></drop-down>
+			</div>
+		</div>
+		<div ng-show="formElement.customHtml" ng-bind-html-unsafe="formElement.customHtml" class="custom-html"></div>
+	</div>
+	<jd-file-upload ng-if="formInfo.execJdFileUpload" options="uploadFileOptions"></jd-file-upload>    
+</div>

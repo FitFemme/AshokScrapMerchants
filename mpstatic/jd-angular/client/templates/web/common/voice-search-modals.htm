@@ -1,0 +1,212 @@
+
+
+<!-- <script>
+          function initAutocomplete(){};//backup function to prevent map breaking.
+         </script> -->
+<div class="voice-search-modals notranslate {{modalType}}" ng-show="modalType && !isVariantPresent && !showLoader && forceShowVoiceSearchModals && !(CMSSliderOpenFromVoice || sliderOpenFromVoice)" ng-class="{'image-slider-open':modalType == 'uploadImageLink' || modalType == 'uploadImageGallery' || modalType == 'uploadImageDevice'}">
+    <div>
+        <jd-moblie-header options="headerOptions" ng-hide="hideHeader"></jd-moblie-header>
+        
+        <!-- seo -->
+	<!-- 	<div class="soe" ng-if="modalType == 'seo' && !isCMS" style="height: 100%">
+		<jd-seo options="seoOptionsFromParent"></jd-seo>
+        </div> -->
+        
+        <!-- widget -->
+      <!--   <div class="widget" ng-if = "!isCMS" style="height: 100%">
+		<div jd-cms-widget-slider options='widgetSliderOption'></div>
+        </div> -->
+
+        <!-- fixedFooter -->
+       <!--  <jd-mobile-fix-footer ng-if = "!isCMS" options="mobileFixFooterOptions"></jd-mobile-fix-footer> -->
+
+        <!-- widgetPage -->
+        <!-- <div ng-if = "showMobWidgets && !isCMS" jd-animate-section="right" start-animation="showMobWidgets" slide-time="0" slider-width="100" slider-percent="true" class="widget-mobile-section web-slider animate-div-right">
+        <div class="jd-animate animate-subsection-left jd-txt-black">
+            <jd-moblie-header options="MobWidgetsHeader"></jd-moblie-header>
+            <div class="widget container">
+                <div  ng-repeat="item in cmsWebMenu.widget">
+                    <div class="row border-bottom " ng-repeat="data in item.submenu" ng-click="openWidgetByVoiceModals(data, $event);">
+                        <div class="col-xs-2 widget-image" ng-if="showMobWidgets">
+                            <div>
+                                <img ng-src="{{data.imgSrc}}" ng-class="{'wordPressImage' : data.id=='wordPressBlog'}">
+                                <img class="tick-mark" ng-show="data.type == 'widget' && enabledWidget[data.id]" src="https://image1.jdomni.in/jdomni_email/tickMark.png">
+                                <img class="tick-mark" ng-show="data.id == 'wordPressBlog' && widgetSliderOption.wordPressActivated" jd-load-webp-image data-src="https://image1.jdomni.in/jdomni_email/tickMark.png">
+                            </div>
+                        </div>
+                        <div class="col-xs-10 widget-details">
+                            <div class="widget-name font16">
+                                {{data.title}}
+                            </div>
+                            <div class="widget-desc font12">
+                                {{data.description}}
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </div> -->
+    </div>
+        
+        <!-- address -->
+        <!-- <div ng-if="modalType == 'businessAddress' && !showLoader" >
+            <div ng-include="'/mpstatic/jd-angular/client/templates/common/add-company-details.htm'" style="padding-top: 65px;" ></div>
+        </div> -->
+
+        <!-- maps -->
+        <!-- <div ng-if="modalType == 'maps' && !showLoader" >
+            <div ng-include="'/mpstatic/jd-angular/client/templates/common/map-location.htm'" style="padding-top: 70px;padding-bottom: 80px;">
+            </div>
+        </div> -->
+
+        <!-- description -->
+        <div ng-if="modalType == 'description' && !showLoader" class="business-description">
+            <div class="description-text"> Tell us something about your company and the products/ services offered in 150-200 words.</div>
+            <div ng-include="'/mpstatic/jd-angular/client/templates/common/business-description.htm'" style="padding-top: 20px;">
+            </div>
+        </div>
+
+        <!-- customise header -->
+        <!-- <div class="customise-header" ng-if="modalType == 'customiseHeader' || cmsModalType == 'customiseHeader'" style="height: 100%">
+            <jd-customise-header options="customiseHeaderOptions"></jd-customise-header>
+        </div> -->
+
+        <jd-customize-social-links options="socialLinksOptions"></jd-customize-social-links>
+
+        <!-- language -->
+        <div ng-if="modalType == 'changeLanguage' && !showLoader">
+            <div ng-include="'langModal'"></div>
+        </div>
+       <!--  <div ng-show="modalType == 'addCustomPage' ">
+            <div ng-include="'genericModal'" style="padding-top: 65px;"></div>
+        </div>
+        <div ng-if="modalType == 'sortCustomPage' " class="customPageSlider">
+            <div ng-include="'/mpstatic/jd-angular/client/templates/common/commonSlider.htm'" style="padding-top: 65px;"></div>
+        </div>
+ -->        <!-- hours -->
+        <!-- <div ng-if="modalType == 'workingHours' && !showLoader" class="business-hours-sec timing-sec">
+            <div ng-include="'/mpstatic/jd-angular/client/templates/common/business-timing.htm'" style="padding-top: 65px;" ></div>
+        </div> -->
+
+        <!-- contact details -->
+        <!-- <div ng-if="modalType == 'contactDetails' && !showLoader" >
+            <div ng-include="'/mpstatic/jd-angular/client/templates/common/receive-notification.htm'" style="padding-top: 65px;" ></div>
+        </div> -->
+
+        <!-- my images -->
+        <div ng-if="modalType == 'uploadImageLink' || modalType == 'uploadImageGallery' || modalType == 'uploadImageDevice'">
+            <div ng-include="'img-cropper'"></div>
+        </div>
+
+        <!-- for banner -->
+       <!--  <div ng-if="cmsSliderOpen == 'banner' && !showLoader && modalType=='editBanner'" ">
+            <div ng-include="'/mpstatic/jd-angular/client/templates/web/common/upload-banner-modal.htm'" style="height: inherit">
+            </div>
+            <jd-link-content options="menuLinkOptions" global="global"></jd-link-content>
+            <div ng-include="'/mpstatic/jd-angular/client/templates/common/genericSlider.htm'" class="genericSlider" ></div>
+        </div> -->
+         <!-- <div ng-show="cmsSliderOpen == 'banner' && !showLoader && modalType=='addBanner'" >
+            <div ng-include="'genericModal'" style="height: inherit;"></div>
+             <div ng-include="'img-cropper'"></div> 
+        </div> -->
+            <!-- <jd-link-content options="menuLinkOptions" global="global"></jd-link-content> -->
+          <!-- <div ng-show="cmsSliderOpen == 'gallery' && !showLoader && modalType=='addGallery'" >
+            <div ng-include="'galleryUploadModal'" style="height: inherit;"></div>
+            <jd-link-content options="menuLinkOptions" global="global"></jd-link-content>
+        </div> -->
+        <!-- for amenities/services -->
+  <!--       <div ng-if="(cmsSliderOpen == 'amenities' || cmsSliderOpen == 'services') && !showLoader  && sliderType != 'sortAmenitiesServicesSlider' && !pageIsCMS">
+            <div class="animate-section-overlay" ng-show="showLeftSlider"></div>
+            <div jd-animate-section="right" start-animation="showLeftSlider" slide-time=400 slider-width={{sliderWidth}} slider-percent="{{sliderPercent}}"  class="animate-div-right video-link-slider {{sliderType}} " ng-class="{'videoBlock-mobile':isMobile}">
+                <div class="jd-animate full-height" style="height: 100%;">
+                    <div 
+                        ng-include="'/mpstatic/jd-angular/client/templates/cms/amenitiesServicesSlider.htm'" 
+                        ng-show="sliderType =='editAmenitiesServicesSlider'|| sliderType == 'sortAmenitiesServicesSlider'" style="height: inherit"  class="editAmenitiesServicesSlider">
+                    </div>
+                    <jd-link-content options="menuLinkOptions" global="global"></jd-link-content>
+                </div>
+            </div>
+        </div>
+        <div ng-if="(cmsSliderOpen == 'gallery' ) && !showLoader  && modalType=='sortGallery'" >
+                    <div 
+                        ng-include="'/mpstatic/jd-angular/client/templates/web/common/edit-gallery-modal.htm'" 
+                        ng-show="sliderType =='showEditGalleryModalSlider'|| sliderType == 'showEditGalleryModalSlider'" style="height: inherit"  class="showEditGalleryModalSlider">
+                    </div>
+                    
+        </div> -->
+        <!--  <div ng-include="'img-cropper'"> -->
+       <!--   <div jd-html-include="img-cropper" include-if="!pageIsCMS"></div>  -->
+       <!-- <div ng-include = "img-cropper" ng-if="!pageIsCMS"></div>-->
+<!--         <div ng-if="(cmsSliderOpen == 'amenities' || cmsSliderOpen == 'services') && !showLoader && sliderType == 'sortAmenitiesServicesSlider' && !pageIsCMS">
+            <div jd-animate-section="right" start-animation="sliderType == 'sortAmenitiesServicesSlider'" slide-time="400" slider-width={{sliderWidth}} slider-percent="{{sliderPercent}}"  class="animate-div-right settings-slider {{sliderType}}">
+                <div class="jd-animate full-height" style="height: 100%;">
+                    <div class="content-div slider {{selectedTemplate}} active-content-{{sliderType}}">
+                        <div 
+                            ng-include="'/mpstatic/jd-angular/client/templates/cms/sortAmenitiesServicesSlider.htm'" 
+                            ng-show="sliderType == 'sortAmenitiesServicesSlider'" style="height: inherit"
+                           
+                        >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ -->
+        <!-- for testimonial -->
+    <!--     <div ng-show="cmsSliderOpen == 'testimonial' && !showLoader" >
+            <div class="animate-section-overlay" ng-show="showLeftSlider"></div>
+            <div jd-animate-section="right" start-animation="showLeftSlider" slide-time=400 slider-width={{sliderWidth}} slider-percent="{{sliderPercent}}"  class="animate-div-right video-link-slider {{sliderType}} " ng-class="{'videoBlock-mobile':isMobile}">
+                <div class="jd-animate full-height" style="height: 100%;">
+                    <div ng-include="'/mpstatic/jd-angular/client/templates/cms/testimonialSlider.htm'" 
+                            style="height: inherit" ng-show="sliderType == 'editTestimonialSlider'" ng-if="sliderLoadObj.editTestimonialSlider"> 
+                    </div>
+                    <jd-link-content options="menuLinkOptions" global="global"></jd-link-content>
+                  
+                </div>
+            </div>
+        </div> -->
+
+        <jd-common-footer options="footerOptions" class="voice-search-modal-footer"></jd-common-footer>  
+    </div>
+</div>
+<!-- loader -->
+<div class="voice-search-modal-loader" ng-show="(showLoader && customiseHeaderOptions.callFrom != 'voiceSearchCMS') || (directToMap && modalType == 'businessAddress')" ng-class="{'direct-map-loader':directToMap && modalType == 'businessAddress'}">
+    <div class="loader-backdrop"></div>
+    <div class="white-bg">
+        <div class="circle-loader hidden-element"></div>
+    </div>
+</div>
+
+<!-- language -->
+<script type="text/ng-template" id="langModal">
+    <div class="content lang-modal ng-scope marginT60" ng-class="{'marginT60':fromVoiceSearch}">
+            <div class="main-content">
+            <div ng-class="$parent.$root.isMobile?'welcome-mobile':'welcome jd-font-roboto'" class="welcome jd-font-roboto clearfix" style="padding-left: 15px;padding-top: 10px;">
+                <div ng-repeat="language in languageSet" style="padding:5px;" ng-click="changeLanguage(language.val, language.name)">
+                    <input type="radio" id="lang-{{$index}}" ng-model="languageSelected" ng-value="language.val" name="radio-group"/>
+                    <label class="lang-label" ng-class="{'lang-selected':languageSelected == language.val, 'borderBottom0': $last}">{{language.translation}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<div class="modal fade jd-font-roboto variants-modal" role="dialog" data-backdrop="static" data-keyboard="true" aria-labelledby="myModalLabel" id="variantsModal" style="opacity:1">
+    <div class="modal-vertical-alignment-helper">
+        <div class="modal-dialog width-300 modal-vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row jd-margin-0">
+                        <div class="col-xs-12 jd-padding-0 text-center ">
+                        Sorry we currently don't support editing <br> products with variants on mobile. Please use<br> the web application for the same.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer jd-padding-0">
+                    <button type="button" class="btn-default btn-block btn-lg" ng-click="closeVariantModal()">OK, Got It</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

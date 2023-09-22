@@ -1,0 +1,1368 @@
+{
+	"manual": {
+		 "B2C": {
+			 "url": "https://support.jdomni.com/?manual_type=premium",
+			 "orders": "&p=17555",
+			 "products": "&p=17510",
+			 "quickSetup": "&p=13659",
+			 "campaign": "&p=17821",
+			 "customers": "&p=18204",
+			 "service": "&p=21518",
+			 "tallyExport": "&p=11548",
+			 "inventory": "&p=12889",
+			 "dashboard": "&p=4739",
+			 "home": "&p=24370",
+			 "unbilledOrder": "&p=17456",
+			 "deliveryPendingOrder": "&p=17468",
+			 "paymentPendingOrders": "&p=17483",
+			 "allOrders": "&p=17447",
+			 "onlinePayments": "&p=21693",
+			 "inbox":"&p=11423",
+			 "viewCompaign":"&p=17821#2",
+			 "paymentPendingCustomers": "&p=18204#1",
+			 "viewAllCustomers": "&p=18204#2",
+			 "viewProducts": "&p=17511",
+			 "manageCategory": "&p=21548",
+			 "viewService": "&p=21644",
+			 "viewInventory": "&p=12889#AB",
+			 "outOfStock": "&P=4766",
+			 "tallyExport": "&p=11548",
+			 "settings": "&p=17115",
+			 "staffMember": "&p=17115#1",
+			 "smsAndEmail": "&p=17115#77",
+			 "supplier": "&p=12966",
+			 "viewSupplier":"&p=46675",
+			 "purchase": "&p=4777",
+			 "productLibrary": "&p=18300",
+			 "stockAudit": "&p=12889#BC"
+		 },
+		 "OMNISTANDARD": {
+			 "url": "https://support.jdomni.com/?manual_type=standard",
+			 "orders": "&p=17555",
+			 "products": "&p=17510",
+			 "quickSetup": "&p=13659",
+			 "campaign": "&p=17821",
+			 "customers": "&p=34532",
+			 "service": "&p=21518",
+			 "tallyExport": "&p=31356",
+			 "inventory": "&p=12889",
+			 "dashboard": "&p=31318",
+			 "home": "&p=31069",
+			 "unbilledOrder": "&p=17456",
+			 "deliveryPendingOrder": "&p=17468",
+			 "paymentPendingOrders": "&p=17483",
+			 "allOrders": "&p=17447",
+			 "onlinePayments": "&p=21693",
+			 "inbox":"&p=11423",
+			 "viewCompaign":"&p=17821#2",
+			 "paymentPendingCustomers": "&p=34532#1",
+			 "viewAllCustomers": "&p=34542#2",
+			 "viewProducts": "&p=17511",
+			 "manageCategory": "&p=21548",
+			 "viewService": "&p=21644",
+			 "viewInventory": "&p=12889#AB",
+			 "outOfStock": "&P=4766",
+			 "tallyExport": "&p=31356",
+			 "settings": "&p=17115",
+			 "staffMember": "&p=17115#1",
+			 "smsAndEmail": "&p=17115#77",
+			 "productLibrary": "&p=18300",
+			 "stockAudit": "&p=12889#BC"
+		 },
+		 "BASICS": {
+			 "url": "https://support.jdomni.com/?manual_type=basic",
+			 "products": "&p=33836",
+			 "quickSetup": "&p=31416",
+			 "campaign": "&p=17821",
+			 "customers": "&p=31466",
+			 "service": "&p=35255",
+			 "home": "&p=31082",
+			 "onlinePayments": "&p=33310",
+			 "inbox":"&p=11423",
+			 "viewCompaign":"&p=17821#2",
+			 "paymentPendingCustomers": "&p=31466#1",
+			 "viewAllCustomers": "&p=31466#2",
+			 "viewProducts": "&p=17511",
+			 "manageCategory": "&p=21548",
+			 "viewService": "&p=21644",
+			 "settings": "&p=31549",
+			 "staffMember": "&p=31549#1",
+			 "smsAndEmail": "&p=31549#77",
+			 "productLibrary": "&p=18300"
+		 }
+  },
+	"routes": {
+	"addCampaign":{
+		"route":"/campaign/selectCampaign",
+		"title":"Add New Campaign",
+		"iconClass":"icon-plus",
+		"routeType":"redirect",
+		"permission":"CAMPAIGN:MENU",
+		"key": "1"
+	},
+		"addCategory":{
+		"route":"/products/manageCategory/add",
+		"permission":"PRODUCT:MENU",
+		"title":"Add Category",
+		"iconClass":"icon-footer_cCategories",
+		"routeType":"redirect",
+		"key": "2"
+	},
+		"addCustomer":{
+		"route":"/customer/customerLandingPage/add",
+		"permission":"CUSTOMERS:MENU",
+		"title":"Add Customer",
+		"iconClass":"icon-Addcustomer",
+		"routeType":"redirect",
+		"key": "3"
+	},
+		"addProduct":{
+		"title":"Add New Product",
+		"permission":"PRODUCT:MENU",
+		"iconClass":"icon-box",
+		"routeType":"function",
+		"key": "4",
+		"route": "$scope.setVoiceSearchModal('addProduct')",
+		"doNotCloseVoiceLoader": true,
+		"permissionKey" : "Products.Add_Products",
+		"postOrPreAck" : "postAck"
+	},
+		"addService":{
+		"title":"Add New Service",
+		"permission":"SERVICE:MENU",
+		"iconClass":"icon-service",
+		"routeType":"function",
+		"key": "5",
+		"route": "$scope.setVoiceSearchModal('addService')",
+		"doNotCloseVoiceLoader": true,
+		"permissionKey" : "Services.Add_Services",
+		"postOrPreAck" : "postAck"
+	},
+		"allOrders":{
+		"route":"/order/ALLORDERS",
+		"permission":"ORDER:MENU",
+		"title":"All Orders",
+		"iconClass":"icon-footer_cCart",
+		"routeType":"redirect",
+		"key": "6",
+		"useIncludeManual": true
+	},
+		"billPayment":{
+		"permission":"PAYBILLS:MENU",
+		"title":"Bill Payment",
+		"iconClass":"icon-payonline",
+		"routeType":"function",
+		"key": "7",
+		"route": "$scope.openBillPayment(undefined,closeVoiceLoader)",
+		"doNotCloseVoiceLoader": true
+	},
+		"billing":{
+		"route":"/myaccount/mobile-billing",
+		"permission":"POS:MENU",
+		"title":"Billing",
+		"iconClass":"icon-billing",
+		"routeType":"redirect",
+		"isDomainVendorApp": true,
+		"key": "8",
+		"permissionKey" : "Orders.Offline_Orders",
+		"postOrPreAck" : "postAck"
+	},
+		"campaign":{
+		"route":"/campaign",
+		"title":"Campaign",
+		"iconClass":"icon-promotion",
+		"routeType":"redirect",
+		"permission":"CAMPAIGN:MENU",
+		"key": "9"
+	},
+		"customFields":{
+		"route":"/settings/customFields",
+		"permission":"SETTINGS:MENU",
+		"title":"Custom Fields",
+		"routeType":"redirect",
+		"iconClass":"icon-customField",
+		"key": "10"
+	},
+		"customers":{
+		"route":"/customer/customerLandingPage",
+		"permission":"CUSTOMERS:MENU",
+		"title":"Customers",
+		"iconClass":"icon-people-group",
+		"routeType":"redirect",
+		"key": "11"
+	},
+		"customizeWebsite":{
+		"title":"Customize Website",
+		"iconClass":"icon-appEdit",
+		"routeType":"function",
+		"permission":"ONLINE_STORE:MENU",
+		"key": "12",
+		"route": "redirectToOnlineStore()",
+		"doNotCloseVoiceLoader": true,
+		"forceShowLoader": true
+	},
+		"dashboard":{
+		"route":"/dashboard",
+		"title":"Dashboard",
+		"iconClass":"icon-dashboard-new",
+		"routeType":"redirect",
+		"permission":"DASHBOARD:MENU",
+		"key": "13",
+		"useIncludeManual":true
+	},
+		"deliveryPendingOrder":{
+		"route":"/order/DELIVERY_PENDING",
+		"permission":"ORDER:MENU",
+		"title":"Delivery Pending Orders",
+		"iconClass":"icon-Delivery_Pending2",
+		"routeType":"redirect",
+		"key": "14"
+	},
+		"exportPurchase":{
+		"route":"/tallyExport/purchase",
+		"permission":"TALLY_EXPORT:MENU",
+		"title":"Export Purchase",
+		"iconClass":"icon-tally",
+		"routeType":"redirect",
+		"key": "15"
+	},
+	"exportSales":
+		{
+			"route":"/tallyExport/sales",
+			"permission":"TALLY_EXPORT:MENU",
+			"title":"Export Sales",
+			"iconClass":"icon-tally",
+			"routeType":"redirect",
+			"key": "16"
+		},
+		"home":{
+		"route":"/universalSearch",
+		"title":"Home",
+		"iconClass":"icon-Home",
+		"routeType":"redirect",
+		"permission":"",
+		"key": "17"
+	},
+		"inbox":{
+		"route":"/jd-vendor/inbox/messages",
+		"permission":"ENQUIRY:MENU",
+		"title":"Inbox",
+		"iconClass":"icon-view_rfq",
+		"routeType":"redirect",
+		"key": "18"
+	},
+		"inventory":{
+		"route":"/manageInventory",
+		"title":"Inventory",
+		"iconClass":"icon-paper-thin-round",
+		"routeType":"redirect",
+		"permission":"INVENTORY:MENU",
+		"key": "19"
+	},
+		"logout":{
+		"title":"Log Out",
+		"permission":"",
+		"routeType":"function",
+		"iconClass":"icon-logout",
+		"key": "20",
+		"route": "$scope.confirmLogout()",
+		"doNotCloseVoiceLoader": true
+	},
+		"manageCategory":{
+		"route":"/products/manageCategory",
+		"permission":"PRODUCT:MENU",
+		"title":"Manage Category",
+		"iconClass":"icon-footer_cCategories",
+		"routeType":"redirect",
+		"key": "21"
+	},
+		"onlinePayments":{
+		"route":"/order/payments",
+		"permission":"ORDER:MENU",
+		"title":"Online Payments",
+		"iconClass":"icon-payonline",
+		"routeType":"redirect",
+		"key": "22"
+	},
+		"orders":{
+		"route":"/order",
+		"title":"Orders",
+		"iconClass":"icon-footer_cCart",
+		"routeType":"redirect",
+		"permission":"ORDER:MENU",
+		"key": "23"
+	},
+		"outOfStock":{
+		"route":"/outOfStock",
+		"title":"Out of Stock",
+		"iconClass":"icon-lowinventory",
+		"routeType":"redirect",
+		"permission":"OUTOFSTOCK:MENU",
+		"key": "24"
+	},
+		"paymentPendingCustomers":{
+		"route":"/customer/pendingPayment",
+		"permission":"CUSTOMERS:MENU",
+		"title":"Payment Pending Customers",
+		"iconClass":"icon-payment_pending",
+		"routeType":"redirect",
+		"key": "25"
+	},
+		"paymentPendingOrders":{
+		"route":"/order/PAYMENT_PENDING",
+		"permission":"ORDER:MENU",
+		"title":"Payment Pendings Orders",
+		"iconClass":"icon-payment_pending",
+		"routeType":"redirect",
+		"key": "26"
+	},
+		"productLibrary":{
+		"route":"/products/updateLibrary",
+		"title":"Product Library",
+		"iconClass":"icon-productCat",
+		"routeType":"redirect",
+		"permission":"PRODUCT:MENU",
+		"key": "27"
+	},
+		"products":{
+		"route":"/products",
+		"title":"Products",
+		"iconClass":"icon-box",
+		"routeType":"redirect",
+		"permission":"PRODUCT:MENU",
+		"key": "28"
+	},
+		"purchase":{
+		"route":"/purchase",
+		"permission":"PURCHASEORDER:MENU",
+		"title":"Purchase",
+		"iconClass":"icon-purchaseorder",
+		"routeType":"redirect",
+		"key": "29"
+	},
+		"quickSetup":{
+		"route":"$scope.setVoiceSearchModal('quickSetup')",
+		"title":"Quick Setup",
+		"iconClass":"icon-quick_start",
+		"routeType":"function",
+		"permission":"QUICKSTART:MENU",
+		"key": "30"
+	},
+		"service":{
+		"route":"/service",
+		"title":"Service",
+		"iconClass":"icon-box",
+		"routeType":"redirect",
+		"permission":"SERVICE:MENU",
+		"key": "31"
+	},
+		"settings":{
+		"route":"/settings",
+		"title":"Settings",
+		"iconClass":"icon-setting",
+		"routeType":"redirect",
+		"permission":"SETTINGS:MENU",
+		"key": "32"
+	},
+		"showOnlineStore":{
+		"permission":"",
+		"title":"Show My Online Store",
+		"iconClass":"icon-web",
+		"routeType":"function",
+		"route":"$rootScope.redirectToOnlineStore('fromLeftMenu')",
+		"key": "33",
+		"doNotCloseVoiceLoader": true
+	},
+		"smsAndEmail":{
+		"route":"/smsEmail",
+		"title":"Sms Email and Whatsapp Credit",
+		"iconClass":"icon-view_rfq",
+		"routeType":"redirect",
+		"permission":"SETTINGS:MENU",
+		"key": "34"
+	},
+		"staffMember":{
+		"title":"Staff Members",
+		"iconClass":"icon-staffmembers",
+		"routeType":"function",
+		"route":"openReactSliders({type:'staffMember'})",
+		"permission":"SETTINGS:MENU",
+		"key": "35",
+		"doNotCloseVoiceLoader": true,
+		"doNotCloseSearchSlider": true
+	},
+		"stockAudit":{
+		"route":"/randomAudit",
+		"title":"Stock Audit",
+		"iconClass":"icon-random-audit",
+		"routeType":"redirect",
+		"permission":"INVENTORY:MENU",
+		"key": "36"
+	},
+		"supplier":{
+		"route":"/suppliers",
+		"title":"Suppliers",
+		"iconClass":"icon-vendor",
+		"routeType":"redirect",
+		"permission":"VENDOR:MENU",
+		"key": "37"
+	},
+		"tallyExport":{
+		"route":"/tallyExport",
+		"title":"Tally Export",
+		"iconClass":"icon-tally",
+		"routeType":"redirect",
+		"permission":"TALLY_EXPORT:MENU",
+		"key": "38"
+	},
+		"unbilledOrder":{
+		"route":"/order/UNBILLED",
+		"permission":"ORDER:MENU",
+		"title":"Unbilled Orders",
+		"iconClass":"icon-online_orders",
+		"routeType":"redirect",
+		"key": "39",
+		"useIncludeManual": true	
+	},
+		"updateBankDetails":{
+		"route":"/bankDetails",
+		"title":"Update Bank Details",
+		"iconClass":"icon-bank",
+		"routeType":"redirect",
+		"permission":"SETTINGS:MENU",
+		"key": "40"
+	},
+		"addByBrand":{
+		"permission":"PRODUCT:MENU",
+		"title":"Add By Brand",
+		"iconClass":"icon-addBrand",
+		"routeType":"function",
+		"key": "41",
+		"route":"$scope.setVoiceSearchModal('addByBrand')",
+		"doNotCloseVoiceLoader": true
+	},
+		"removeByBrand":{
+		"permission":"PRODUCT:MENU",
+		"title":"Remove By Brand",
+		"iconClass":"icon-removeBrand",
+		"routeType":"function",
+		"key": "42",
+		"route":"$scope.global.redirectToGenio('removeProductByBrand')",
+		"doNotCloseVoiceLoader": true
+	},
+		"viewAllCustomers":{
+		"route":"/customer/manage",
+		"permission":"CUSTOMERS:MENU",
+		"title":"View All Customers",
+		"iconClass":"icon-people-group",
+		"routeType":"redirect",
+		"key": "43"
+	},
+		"viewCompaign":{
+		"route":"/campaign/viewCampaign",
+		"title":"View Campaign",
+		"iconClass":"icon-promotion",
+		"routeType":"redirect",
+		"permission":"CAMPAIGN:MENU",
+		"key": "44"
+	},
+		"viewProducts":{
+		"route":"openReactSliders({type:'viewProducts'})",
+		"permission":"PRODUCT:MENU",
+		"title":"View Products",
+		"iconClass":"icon-box",
+		"routeType":"function",
+		"key": "45"
+	},
+		"viewService":{
+		"route":"/services/viewService",
+		"permission":"SERVICE:MENU",
+		"title":"View Service",
+		"iconClass":"icon-service",
+		"routeType":"redirect",
+		"key": "46"
+	},
+		"editProduct":{
+			"route":"$scope.setVoiceSearchModal('editProduct',dataToBePassed)",
+			"permission":"PRODUCT:MENU",
+			"title":"Edit Product",
+			"iconClass":"icon-box",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "pid,variant_exists,templating_type",
+			"key": "47",
+			"doNotCloseVoiceLoader": true
+		},
+		"editProductImage":{
+			"route":"$scope.setVoiceSearchModal('editProductImage',dataToBePassed)",
+			"permission":"PRODUCT:MENU",
+			"title":"Edit Product Image",
+			"iconClass":"icon-box",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "pid,variant_exists,templating_type",
+			"key":"48",
+			"doNotCloseVoiceLoader": true
+		},
+		"editProductPrice":{
+			"route":"$scope.setVoiceSearchModal('editProductPrice',dataToBePassed)",
+			"permission":"PRODUCT:MENU",
+			"title":"Edit Product Price",
+			"iconClass":"icon-box",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "pid,variant_exists,templating_type",
+			"key":"49",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeLanguage":{
+			"route":"$scope.setVoiceSearchModal('changeLanguage')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Language",
+			"iconClass":"icon-language",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"50",
+			"doNotCloseVoiceLoader": true
+		},
+		"billPaymentMobileBill":{
+		"permission":"PAYBILLS:MENU",
+		"title":"Bill Payment Mobile Bill",
+		"iconClass":"icon-payonline",
+		"routeType":"function",
+		"key": "51",
+		"route": "$scope.openBillPayment('prepaid',closeVoiceLoader)",
+		"doNotCloseVoiceLoader": true
+		},
+		"billPaymentDthBill":{
+		"permission":"PAYBILLS:MENU",
+		"title":"Bill Payment Dth bill",
+		"iconClass":"icon-payonline",
+		"routeType":"function",
+		"key": "52",
+		"route": "$scope.openBillPayment('dth',closeVoiceLoader)",
+		"doNotCloseVoiceLoader": true
+		},
+		"billPaymentElectricityBill":{
+		"permission":"PAYBILLS:MENU",
+		"title":"Bill Payment Electricity Bill",
+		"iconClass":"icon-payonline",
+		"routeType":"function",
+		"key": "53",
+		"route": "$scope.openBillPayment('electricity',closeVoiceLoader)",
+		"doNotCloseVoiceLoader": true
+		},
+		"billPaymentGasBill":{
+		"permission":"PAYBILLS:MENU",
+		"title":"Bill Payment Gas Bill",
+		"iconClass":"icon-payonline",
+		"routeType":"function",
+		"key": "54",
+		"route": "$scope.openBillPayment('gas',closeVoiceLoader)",
+		"doNotCloseVoiceLoader": true
+		},
+		"billPaymentLandlineBill":{
+		"permission":"PAYBILLS:MENU",
+		"title":"Bill Payment Landline Bill",
+		"iconClass":"icon-payonline",
+		"routeType":"function",
+		"key": "55",
+		"route": "$scope.openBillPayment('landline',closeVoiceLoader)",
+		"doNotCloseVoiceLoader": true
+		},
+		"billPaymentDatacardBill":{
+		"permission":"PAYBILLS:MENU",
+		"title":"Bill Payment Data Card",
+		"iconClass":"icon-payonline",
+		"routeType":"function",
+		"key": "56",
+		"route": "$scope.openBillPayment('data-card',closeVoiceLoader)",
+		"doNotCloseVoiceLoader": true
+		},
+		"businessAddress":{
+			"route":"/businessProfile/businessAddress",
+			"permission":"SETTINGS:MENU",
+			"title":"Company Address",
+			"iconClass":"icon-StoreNew",
+			"routeType":"redirect",
+			"preventLogging": false,
+			"key":"57",
+			"doNotCloseVoiceLoader": true
+		},
+		"workingHours":{
+			"route":"/businessProfile/workingHours",
+			"permission":"SETTINGS:MENU",
+			"title":"Business Hours",
+			"iconClass":"icon-alarm",
+			"routeType":"redirect",
+			"preventLogging": true,
+			"key":"58",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeLanguageEnglish":{
+			"route":"$scope.setVoiceSearchModal('changeLanguageEnglish',dataToBePassed)",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Language English",
+			"iconClass":"icon-language",
+			"routeType":"function",
+			"dataToBePassed": "langVal",
+			"valueToBePassed": "/en/en",
+			"preventLogging": true,
+			"key":"59",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeLanguageHindi":{
+			"route":"$scope.setVoiceSearchModal('changeLanguageHindi',dataToBePassed)",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Language Hindi",
+			"iconClass":"icon-language",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "langVal",
+			"valueToBePassed": "/en/hi",
+			"key":"60",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeLanguageMarathi":{
+			"route":"$scope.setVoiceSearchModal('changeLanguageMarathi',dataToBePassed)",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Language Marathi",
+			"iconClass":"icon-language",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "langVal",
+			"valueToBePassed": "/en/mr",
+			"key":"61",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeLanguageTamil":{
+			"route":"$scope.setVoiceSearchModal('changeLanguageTamil',dataToBePassed)",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Language Tamil",
+			"iconClass":"icon-language",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "langVal",
+			"valueToBePassed": "/en/ta",
+			"key":"62",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeLanguageBengali":{
+			"route":"$scope.setVoiceSearchModal('changeLanguageBengali',dataToBePassed)",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Language Bengali",
+			"iconClass":"icon-language",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "langVal",
+			"valueToBePassed": "/en/bn",
+			"key":"63",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeLanguageGujarati":{
+			"route":"$scope.setVoiceSearchModal('changeLanguageGujarati',dataToBePassed)",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Language Gujarati",
+			"iconClass":"icon-language",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "langVal",
+			"valueToBePassed": "/en/gu",
+			"key":"64",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeLanguageMalayalam":{
+			"route":"$scope.setVoiceSearchModal('changeLanguageMalayalam',dataToBePassed)",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Language Malayalam",
+			"iconClass":"icon-language",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "langVal",
+			"valueToBePassed": "/en/ml",
+			"key":"65",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeLanguageKannada":{
+			"route":"$scope.setVoiceSearchModal('changeLanguageKannada',dataToBePassed)",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Language Kannada",
+			"iconClass":"icon-language",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "langVal",
+			"valueToBePassed": "/en/kn",
+			"key":"66",
+			"doNotCloseVoiceLoader": true
+		},
+		"customiseHeader":{
+			"route":"$scope.setVoiceSearchModal('customiseHeader')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Customize Header",
+			"iconClass":"icon-notes",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"67",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeColour":{
+			"route":"$scope.setVoiceSearchModal('changeColour',dataToBePassed)",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Change Color",
+			"iconClass":"icon-colour",
+			"routeType":"function",
+			"dataToBePassed": "parameter",
+			"preventLogging": true,
+			"key":"68",
+			"doNotCloseVoiceLoader": true
+		},
+		"customiseMobileMenu":{
+			"route":"$scope.setVoiceSearchModal('customiseMobileMenu')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Customize Mobile Menu",
+			"iconClass":"icon-menu",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"69",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeCompanyName":{
+			"route":"$scope.setVoiceSearchModal('changeCompanyName')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Company Name",
+			"iconClass":"icon-general-settings-thin",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"70",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeCompanyLogo":{
+			"route":"$scope.setVoiceSearchModal('changeCompanyLogo')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Company Logo",
+			"iconClass":"icon-localFile",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"71",
+			"doNotCloseVoiceLoader": true
+		},
+		"customiseSearch":{
+			"route":"$scope.setVoiceSearchModal('customiseSearch')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Customize Search",
+			"iconClass":"icon-search",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"73",
+			"doNotCloseVoiceLoader": true
+		},
+		"editService":{
+			"route":"$scope.setVoiceSearchModal('editService',dataToBePassed)",
+			"permission":"SERVICE:MENU",
+			"title":"Edit Service",
+			"iconClass":"icon-box",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "pid,variant_exists,templating_type",
+			"key": "74",
+			"doNotCloseVoiceLoader": true
+		},
+		"editServiceImage":{
+			"route":"$scope.setVoiceSearchModal('editServiceImage',dataToBePassed)",
+			"permission":"SERVICE:MENU",
+			"title":"Edit Service Image",
+			"iconClass":"icon-box",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "pid,variant_exists,templating_type",
+			"key":"75",
+			"doNotCloseVoiceLoader": true
+		},
+		"editServicePrice":{
+			"route":"$scope.setVoiceSearchModal('editServicePrice',dataToBePassed)",
+			"permission":"SERVICE:MENU",
+			"title":"Edit Service Price",
+			"iconClass":"icon-box",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "pid,variant_exists,templating_type",
+			"key":"76",
+			"doNotCloseVoiceLoader": true
+		},
+		"uploadImageGallery":{
+			"route":"$scope.setVoiceSearchModal('uploadImageGallery')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Upload Image Gallery",
+			"iconClass":"icon-myImages",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"77",
+			"doNotCloseVoiceLoader": true
+		},
+		"uploadImageDevice":{
+			"route":"$scope.setVoiceSearchModal('uploadImageDevice')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Upload Image Device",
+			"iconClass":"icon-upload",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"78",
+			"doNotCloseVoiceLoader": true
+		},
+		"uploadImageLink":{
+			"route":"$scope.setVoiceSearchModal('uploadImageLink')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Upload Image Link",
+			"iconClass":"icon-linkURL",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"79",
+			"doNotCloseVoiceLoader": true
+		},
+		"dashboardWeek":{
+			"route":"/dashboard/weekly",
+			"title":"Dashboard Week",
+			"iconClass":"icon-dashboard-new",
+			"routeType":"redirect",
+			"permission":"DASHBOARD:MENU",
+			"key": "80"
+		},
+		"dashboardMonth":{
+			"route":"/dashboard/monthly",
+			"title":"Dashboard Month",
+			"iconClass":"icon-dashboard-new",
+			"routeType":"redirect",
+			"permission":"DASHBOARD:MENU",
+			"key": "81"
+		},
+		"businessDetails":{
+			"route":"/businessProfile",
+			"permission":"SETTINGS:MENU",
+			"title":"Business Info",
+			"iconClass":"icon-notes",
+			"routeType":"redirect",
+			"key":"82"
+		},
+		"maps":{
+			"route":"/businessProfile/maps",
+			"permission":"SETTINGS:MENU",
+			"title":"Maps",
+			"iconClass":"icon-location",
+			"routeType":"redirect",
+			"preventLogging": false,
+			"key":"83",
+			"doNotCloseVoiceLoader": true
+		},
+		"description":{
+			"route":"/businessProfile/businessDescription",
+			"permission":"SETTINGS:MENU",
+			"title":"Description",
+			"iconClass":"icon-notes",
+			"routeType":"redirect",
+			"preventLogging": true,
+			"key":"84",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeLanguageTelugu":{
+			"route":"$scope.setVoiceSearchModal('changeLanguageTelugu',dataToBePassed)",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Language Telugu",
+			"iconClass":"icon-language",
+			"routeType":"function",
+			"preventLogging": true,
+			"dataToBePassed": "langVal",
+			"valueToBePassed": "/en/te",
+			"key":"85",
+			"doNotCloseVoiceLoader": true
+		},
+		"addAmenity":{
+			"route":"$scope.setVoiceSearchModal('addAmenities')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Add Amenities",
+			"iconClass":"icon-amenitiesSM",
+			"routeType":"function",
+			"preventLogging": false,
+			"key":"86",
+			"doNotCloseVoiceLoader": true
+		},
+		"sortAmenity":{
+			"route":"$scope.setVoiceSearchModal('sortAmenity')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Sort Amenities",
+			"iconClass":"icon-amenitiesSM",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"87",
+			"doNotCloseVoiceLoader": true
+		},
+		"addTestimonial":{
+			"route":"$scope.setVoiceSearchModal('addTestimonial')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":" Add Testimonial",
+			"iconClass":"icon-testimonialOnly",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"88",
+			"doNotCloseVoiceLoader": true
+		},
+		"sortTestimonial":{
+			"route":"$scope.setVoiceSearchModal('sortTestimonial')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":" Sort Testimonial",
+			"iconClass":"icon-testimonialOnly",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"89",
+			"doNotCloseVoiceLoader": true
+		},
+		"addServiceContentBlock":{
+			"route":"/service/add",
+			"permission":"SERVICE:MENU",
+			"title":"Add Services",
+			"iconClass":"icon-service",
+			"routeType":"redirect",
+			"preventLogging": false,
+			"key":"90",
+			"doNotCloseVoiceLoader": true,
+			"permissionKey" : "Services.Add_Services",
+			"postOrPreAck" : "postAck"
+		},
+		"sortServiceContentBlock":{
+			"route":"$scope.setVoiceSearchModal('sortServiceContentBlock')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":"Edit Services",
+			"iconClass":"icon-service",
+			"routeType":"function",
+			"preventLogging": false,
+			"key":"91",
+			"doNotCloseVoiceLoader": true
+		},
+		"addBanner":{
+			"route":"$scope.setVoiceSearchModal('addBanner')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":" Add Banner",
+			"iconClass":"icon-pluseLine",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"92",
+			"doNotCloseVoiceLoader": true
+		},
+		"sortBanner":{
+			"route":"$scope.setVoiceSearchModal('editBanner')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":" Sort Banner",
+			"iconClass":"icon-sort",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"93",
+			"doNotCloseVoiceLoader": true
+		},
+		"editCustomPages":{
+			"route":"$scope.setVoiceSearchModal('sortCustomPage')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":" Sort Pages",
+			"iconClass":"icon-customPage",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"94",
+			"doNotCloseVoiceLoader": true
+		},
+		"addCustomPages":{
+			"route":"$scope.setVoiceSearchModal('addCustomPage')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":" Add Pages",
+			"iconClass":"icon-customPage",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"95",
+			"doNotCloseVoiceLoader": true
+		},
+		"sortGallery":{
+			"route":"$scope.setVoiceSearchModal('sortGallery')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":" Sort Gallery",
+			"iconClass":"icon-galleryThree",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"96",
+			"doNotCloseVoiceLoader": true
+		},
+		"addGallery":{
+			"route":"$scope.setVoiceSearchModal('addGallery')",
+			"permission":"ONLINE_STORE:MENU",
+			"title":" Add Gallery",
+			"iconClass":"icon-galleryThree",
+			"routeType":"function",
+			"preventLogging": true,
+			"key":"97",
+			"doNotCloseVoiceLoader": true
+		},
+		"viewInventory":{
+			"route":"/manageInventory/viewAll/productWise",
+			"title":"View Inventory",
+			"iconClass":"icon-paper-thin-round",
+			"routeType":"redirect",
+			"permission":"INVENTORY:MENU",
+			"key": "98"
+		},
+		"billPaymentInsurance":{
+			"permission":"PAYBILLS:MENU",
+			"title":"Bill Payment Insurance",
+			"iconClass":"icon-light_credit_card",
+			"routeType":"function",
+			"key": "99",
+			"route": "$scope.openBillPayment('insurance-premium',closeVoiceLoader)",
+			"doNotCloseVoiceLoader": true
+		},
+		"billPaymentWater":{
+			"permission":"PAYBILLS:MENU",
+			"title":"Bill Payment Water",
+			"iconClass":"icon-light_credit_card",
+			"routeType":"function",
+			"key": "100",
+			"route": "$scope.openBillPayment('water',closeVoiceLoader)",
+			"doNotCloseVoiceLoader": true
+		},
+		"billPaymentDonation":{
+			"permission":"PAYBILLS:MENU",
+			"title":"Bill Payment Donations",
+			"iconClass":"icon-light_credit_card",
+			"routeType":"function",
+			"key": "101",
+			"route": "$scope.openBillPayment('donations',closeVoiceLoader)",
+			"doNotCloseVoiceLoader": true
+		},
+		"billPaymentBroadband":{
+			"permission":"PAYBILLS:MENU",
+			"title":"Bill Payment Broadband",
+			"iconClass":"icon-light_credit_card",
+			"routeType":"function",
+			"key": "102",
+			"route": "$scope.openBillPayment('broadband',closeVoiceLoader)",
+			"doNotCloseVoiceLoader": true
+		},
+		"changeTheme":{
+			"route":"/onlineStore/selectTheme/mywebsite",
+			"title":"Change Theme",
+			"permission":"ONLINE_STORE:MENU",
+			"iconClass":"icon-changeThemeNew",
+			"routeType":"redirect",
+			"key": "103"
+		},
+		"addEnquiry":{
+			"route":"/enquiryManage/ALL/add",
+			"permission":"ENQUIRY:MENU",
+			"title":"Add Enquiry",
+			"iconClass":"icon-view_rfq",
+			"routeType":"redirect",
+			"key": "104"
+		},
+		"addSmsCampaign":{
+			"route":"/campaign/addNewCampaign/SMS",
+			"title":"Add SMS Campaign",
+			"iconClass":"icon-view_rfq",
+			"routeType":"redirect",
+			"permission":"CAMPAIGN:MENU",
+			"key": "105"
+		},
+		"seo":{
+			"title":"SEO",
+			"iconClass":"icon-searchSEO",
+			"routeType":"function",
+			"key": "106",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('seo')",
+			"doNotCloseVoiceLoader": true
+		},
+		"widget":{
+			"title":"Widget",
+			"iconClass":"icon-widget",
+			"routeType":"function",
+			"key": "107",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('widget')",
+			"doNotCloseVoiceLoader": true
+		},
+		"createPayments":{
+			"route":"/order/payments/create",
+			"title":"Create Payment",
+			"iconClass":"icon-light_credit_card",
+			"routeType":"redirect",
+			"permission":"CAMPAIGN:MENU",
+			"key": "108"
+		},
+		"whatsapp":{
+			"title":"WhatsApp",
+			"iconClass":"icon-WhatsApp",
+			"routeType":"function",
+			"key": "109",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('whatsapp')",
+			"doNotCloseVoiceLoader": true
+		},
+		"facebookMessenger":{
+			"title":"Facebook Messenger",
+			"iconClass":"icon-FacebookMessenger",
+			"routeType":"function",
+			"key": "110",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('facebookMessenger')",
+			"doNotCloseVoiceLoader": true
+		},
+		"googleAnalytics":{
+			"title":"Google Analytics",
+			"iconClass":"icon-GoogleAnalytics",
+			"routeType":"function",
+			"key": "111",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('googleAnalytics')",
+			"doNotCloseVoiceLoader": true
+		},
+		"tawk.to":{
+			"title":"Tawk.to",
+			"iconClass":"icon-TawktTo",
+			"routeType":"function",
+			"key": "112",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('tawkTo')",
+			"doNotCloseVoiceLoader": true
+		},
+		"wordPressBlog":{
+			"title":"Wordpress Blog",
+			"iconClass":"icon-WordpressBlog",
+			"routeType":"function",
+			"key": "113",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('wordPressBlog')",
+			"doNotCloseVoiceLoader": true
+		},
+		"wufooForm":{
+			"title":"Wufoo Form",
+			"iconClass":"icon-WufooForm",
+			"routeType":"function",
+			"key": "114",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('wufooForm')",
+			"doNotCloseVoiceLoader": true
+		},
+		"jivochat":{
+			"title":"Jivochat",
+			"iconClass":"icon-Jivochat",
+			"routeType":"function",
+			"key": "115",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('jivochat')",
+			"doNotCloseVoiceLoader": true
+		},
+		"intercom":{
+			"title":"Intercom",
+			"iconClass":"icon-Intercom",
+			"routeType":"function",
+			"key": "116",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('intercom')",
+			"doNotCloseVoiceLoader": true
+		},
+		"webengage":{
+			"title":"webengage",
+			"iconClass":"icon-WebEngage",
+			"routeType":"function",
+			"key": "117",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('webEngage')",
+			"doNotCloseVoiceLoader": true
+		},
+		"olark":{
+			"title":"olark",
+			"iconClass":"icon-Olark",
+			"routeType":"function",
+			"key": "118",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('olark')",
+			"doNotCloseVoiceLoader": true
+		},
+		"zendeskChat":{
+			"title":"Zendesk Chat",
+			"iconClass":"icon-ZendeskChat",
+			"routeType":"function",
+			"key": "119",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('zendeskChat')",
+			"doNotCloseVoiceLoader": true
+		},
+		"helloBar":{
+			"title":"Hello Bar",
+			"iconClass":"icon-HelloBar",
+			"routeType":"function",
+			"key": "120",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('helloBar')",
+			"doNotCloseVoiceLoader": true
+		},
+		"facebookPixel":{
+			"title":"Facebook Pixel",
+			"iconClass":"icon-FacebookPixel",
+			"routeType":"function",
+			"key": "121",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('facebookPixel')",
+			"doNotCloseVoiceLoader": true
+		},
+		"bitrix24":{
+			"title":"Bitrix24",
+			"iconClass":"icon-Bitrix24",
+			"routeType":"function",
+			"key": "122",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('bitrix24')",
+			"doNotCloseVoiceLoader": true
+		},
+		"googleAdwords":{
+			"title":"Google Adwords",
+			"iconClass":"icon-GoogleAdwords",
+			"routeType":"function",
+			"key": "123",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('googleAdwords')",
+			"doNotCloseVoiceLoader": true
+		},
+		"fixedFooter":{
+			"title":"Fixed Footer",
+			"iconClass":"icon-footerCMS",
+			"routeType":"function",
+			"key": "124",
+			"permission":"ONLINE_STORE:MENU",
+			"route": "$scope.setVoiceSearchModal('fixedFooter')",
+			"doNotCloseVoiceLoader": true
+		},
+		"viewSupplier":{
+		"route":"/suppliers/listSupplier",
+		"title":"View Suppliers",
+		"iconClass":"icon-vendor",
+		"routeType":"redirect",
+		"permission":"VENDOR:MENU",
+		"key": "125"
+	},
+		"addSupplier":{
+		"route":"/suppliers/add",
+		"title":"Add Suppliers",
+		"iconClass":"icon-vendor",
+		"routeType":"redirect",
+		"permission":"VENDOR:MENU",
+		"key": "126"
+	},
+		"booking":{
+		"route":"/settings/booking",
+		"permission":"SETTINGS:MENU",
+		"title":"Booking",
+		"routeType":"redirect",
+		"iconClass":"icon-customField",
+		"key": "127",
+		"checkPermFromManager": "showOnlineBooking"
+	},
+		"calendarSetup":{
+		"route":"/settings/bookingCal",
+		"permission":"SETTINGS:MENU",
+		"title":"Calendar Setup",
+		"routeType":"redirect",
+		"iconClass":"icon-customField",
+		"key": "128",
+		"checkPermFromManager": "showOnlineBooking"
+	},
+		"onlineBookingSetup":{
+		"route":"/settings/bookingOnl",
+		"permission":"SETTINGS:MENU",
+		"title":"Online Booking Setup",
+		"routeType":"redirect",
+		"iconClass":"icon-customField",
+		"key": "129",
+		"checkPermFromManager": "showOnlineBooking"
+	},
+		"notification":{
+		"route":"/notifications",
+		"permission":"SETTINGS:MENU",
+		"title":"Notifications",
+		"iconClass":"icon-bellNotification",
+		"routeType":"redirect",
+		"key" : "130"
+	},
+	"codSettings":
+	{
+		"route": "openReactSliders({type:'codSettings'})",
+		"permission":"SETTINGS:MENU",
+		"title":"Cash On Delivery Settings",
+		"iconClass":"icon-CkCOD",
+		"routeType":"function",
+		"key": "131",
+		"doNotCloseVoiceLoader": true,
+		"doNotCloseSearchSlider": true
+	},
+	"creditSettings":
+	{
+		"route": "openReactSliders({type:'creditSettings'})",
+		"permission":"SETTINGS:MENU",
+		"title":"Credit Settings",
+		"iconClass":"icon-customerCredit",
+		"routeType":"function",
+		"key": "132",
+		"doNotCloseVoiceLoader": true,
+		"doNotCloseSearchSlider": true
+	},
+	"paymentSettings":
+	{
+		"permission":"SETTINGS:MENU",
+		"title":"Payment Settings",
+		"iconClass":"icon-PMothers",
+		"routeType":"function",
+		"route": "openReactSliders({type:'payments'})",
+		"key": "133",
+		"doNotCloseVoiceLoader": true,
+		"doNotCloseSearchSlider": true
+	},
+	"JDPaySettings":
+	{
+		"permission":"SETTINGS:MENU",
+		"title":"JDPay Settings",
+		"iconClass":"icon-jdLight2",
+		"routeType":"function",
+		"route": "openReactSliders({type:'payments'})",
+		"key": "134",
+		"doNotCloseVoiceLoader": true,
+		"doNotCloseSearchSlider": true
+	},
+	"paypalSettings":
+	{
+		"permission":"SETTINGS:MENU",
+		"title":"Paypal Settings",
+		"iconClass":"icon-payPal",
+		"routeType":"redirect",
+		"route": "openReactSliders({type:'payments'})",
+		"key": "135",
+		"doNotCloseVoiceLoader": true,
+		"doNotCloseSearchSlider": true
+	},
+	"changeLanguagePunjabi":{
+		"route":"$scope.setVoiceSearchModal('changeLanguageKannada',dataToBePassed)",
+		"permission":"ONLINE_STORE:MENU",
+		"title":"Language Punjabi",
+		"iconClass":"icon-language",
+		"routeType":"function",
+		"preventLogging": true,
+		"dataToBePassed": "langVal",
+		"valueToBePassed": "/en/pa",
+		"key":"136",
+		"doNotCloseVoiceLoader": true
+	},
+		"discount":{
+		"route":"/myaccount/jd-vendor/promotions/discounts",
+		"title":"Discount",
+		"iconClass":"icon-dashboard-new",
+		"isDomainVendorApp": true,
+		"routeType":"redirect",
+		"permission":"DISCOUNT:MENU",
+		"key": "137",
+		"permissionKey" : "Discount.Create_Discount",
+		"postOrPreAck" : "preAck"
+	}
+}
+}

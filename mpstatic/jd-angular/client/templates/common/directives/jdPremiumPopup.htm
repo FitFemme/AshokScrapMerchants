@@ -1,0 +1,53 @@
+<div class=" modal fade jd-font-roboto jd-premium-popup notranslate {{premiumModalObj.customClass}}" tabindex="-1" role="dialog" data-keyboard="true" data-backdrop="static" ng-click="overlayClick($event)">
+	<div class="modal-vertical-alignment-helper">
+		<div class="modal-dialog popup-modal modal-vertical-align-center">
+			<div class="modal-content text-center">
+				<div class="modal-header" ng-show="premiumModalObj.showCloseIcon" ng-class = "{'align-close-btn' : premiumModalObj.ImageTypeToBeShown == 'upgradeImage'}">
+					<button type="button" class="close btn-animate-hover circle-btn" jd-ripple-click="closeModal()" ripple-effect ripple-overflow = "false" data-retainPosition = "true">
+	        			<i class="icon icon-close-thin"></i>
+	        		</button>	
+				</div>
+				<div class="modal-body">
+					<div class="header">
+						<div ng-if = "premiumModalObj.ImageTypeToBeShown == 'premiumImage'" class="premium-img-div">
+							<img class="premium-img" ng-src={{premiumModalObj.imgUrl}}>
+						</div>
+						<div ng-if = "premiumModalObj.ImageTypeToBeShown == 'upgradeImage' && device == 'web'">
+							<img ng-show="successImgUrl" class="upgrade-img" ng-src="{{successImgUrl}}">
+						</div>
+						<div ng-if = "premiumModalObj.ImageTypeToBeShown == 'upgradeImage' && showTickMark">
+							<img ng-show="successImgUrl" class="upgrade-img" ng-src="{{successImgUrl}}">
+						</div>
+						<div ng-if = "premiumModalObj.ImageTypeToBeShown == 'ecommerceImage'" class="ecommerce-img-div">
+							<img class = "ecommerce-img" ng-src="https://image1.jdomni.in/jdomni_email/Group13_1811021532.png">
+						</div>
+						<div ng-if = "premiumModalObj.ImageTypeToBeShown == 'paymnetSuccessImage'" class="payment-sucess-img-div">
+							<img class = "payment-sucess-img" src="https://image1.jdomni.in/jdomni_email/paymentSuccess_1811231337.png">
+						</div>
+					</div>
+					<div class="headerTitle" ng-show="premiumModalObj.headerTitle">
+						<span>{{premiumModalObj.headerTitle}}</span>
+					</div>
+					<div class="subTitle" ng-show="premiumModalObj.subTitle">
+						<span>{{premiumModalObj.subTitle}}</span>
+					</div>
+					<div class="noteText" ng-show="premiumModalObj.noteText">
+						<span>{{premiumModalObj.noteText}}</span>
+					</div>
+					<div ng-show="premiumModalObj.paymentSuccessTextandBtn">
+						<div class="headerTitle payment-sucess-text">Payment Successful</div>
+						<div class="subTitle marginT20">Congratulations.Your account plan have been upgraded to <b>Premium</b></div>
+					</div>
+				</div>
+				<div class="modal-footer txt-center">
+					<div ng-repeat="item in premiumModalObj.button">
+						<div class="{{item.btnDivClass}}">
+							<button type="button" class="{{item.btnClass}}" ng-show = "!premiumModalObj.showLoader" jd-ripple-click="item.onBtnClick()">{{item.btnName}}</button>
+							<div class = "loader" ng-show = "premiumModalObj.showLoader"><span class = "circle"></span></div>
+						</div>		
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

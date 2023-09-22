@@ -1,0 +1,22 @@
+<div class="edit-product-in-cms" ng-class="{'visible':showEditPopups,'popup-modal-open':deleteModalOpen}" ng-if="showEditPopups">
+	<div class="animate-section-overlay" ng-show="slider"></div>
+	<div jd-animate-section="right" start-animation="slider == 'setting'" slide-time="800" slider-width="{{sliderWidth}}" class="animate-div-right detail-listing-setting" style="height: 100%;z-index: 10001;">
+    	<div class="jd-animate full-height animate-subsection-left" >
+			<jd-moblie-header options="settingSliderHeader"></jd-moblie-header>
+			<div class="detail-listing-setting-body smart-fill-demo" ng-click="$event.stopPropagation();">
+	      		<jd-switch-with-label switch-button-checked="pageSettings.smartFill" jd-change="" label-html="labelHtml"></jd-switch-with-label>
+				<div class="demo-image-container">
+					<div class="smartfill-image-container">
+						<img ng-src="https://image1.jdomni.in/jdomni_email/smartfill_off_1812031811.jpg" />
+						<div>SmartFill<sup>TM</sup> Off</div>
+					</div>
+					<div class="smartfill-image-container">
+						<img ng-src="https://image1.jdomni.in/jdomni_email/smarfill_on_1812031811.jpg" />
+						<div>SmartFill<sup>TM</sup> On</div>
+					</div>
+				</div>
+			</div>
+			<button type="button" class="btn pull-right save-btn btn-blue cms-bottom-floating-btn" jd-ripple-click="saveSmartFillSettings()">Save</button>
+		</div>
+	</div>
+</div>

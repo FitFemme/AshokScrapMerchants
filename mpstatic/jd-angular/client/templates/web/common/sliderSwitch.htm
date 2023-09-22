@@ -1,0 +1,7 @@
+<div class="animate-switch-selector" ng-class="{'first-selected': options.selectedIndex == 0, 'last-selected': options.selectedIndex == options.values.length-1}">
+	<div class="switch-value" ng-repeat="value in options.values" ng-class="{'selected': $index == options.selectedIndex}" ng-click="onSwitchClick($index)" ng-style="{'width': singleValueWidth + '%'}">
+		{{value.displayText}}
+	</div>
+	<div class="switch-selector-slider" ng-style="{'transform': 'translateX(' + options.selectedIndex*100 + '%)', 'width': singleValueWidth + '%'}">
+    </div>
+</div>

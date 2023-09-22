@@ -1,0 +1,104 @@
+<div class="social-link-slider">
+	<div class="animate-section-overlay social-link" ng-show="showSocialLinkSlider"></div>
+	<div jd-animate-section="right" start-animation="showSocialLinkSlider" slide-time="800" slider-width="{{sliderWidth}}" slider-percent="false" class="web-slider animate-div-right web-full-height social-links">
+		<div class="jd-animate animate-subsection-left jd-txt-black">
+			<jd-moblie-header options="titleHeaderOptions"></jd-moblie-header>
+            <div class="header-customisation-body" style="height: 100%">
+    			<div class="social-parent-div paddingLR11" ng-class="{'setting-slider':showSettingsSection}">
+                    <div ng-show="showSettingsSection">
+                        <jd-form formoptions="socialOptions"></jd-form>
+                    </div>
+                    <div ng-hide="showSettingsSection">
+                        <div class="marginT15 marginB15 pos-rel social-fields {{data.type}}" ng-repeat="data in socialLinkData" ng-hide="data.hide">
+            				<div class="{{data.iconClass}} text-center social-icons"></div> 
+            				<div class="social-link-url-input" ng-class="{'jd-validation-error':data.validationError}">
+            					<input type="text" class="form-control" ng-model="data.linkUrl" placeholder="{{data.placeholder}}" ng-change ="validate(data)" ng-blur="validateLink(data)" ng-focus="data.validationError = ''" jd-field-visible-on-focus elem-holder="social-parent-div" visibility-padding="55">
+                                <i class="icon-close-thin cursor-pointer" ng-class="{'btn-animate-hover circle-btn':!isMobile}" ng-show="!!data.linkUrl" ng-click="clearLinkUrl(data)"></i>
+            					<!-- <input type="text" jd-regex-validation="mobnumRegex" class="form-control custom-input" ng-model="data.linkUrl" maxlength="25" placeholder="{{data.placeholder}}" ng-if="data.type=='contactNo'" jd-field-visible-on-focus elem-holder="social-parent-div" visibility-padding="55">
+            					<div ng-show="data.validationError" class="jd-validation-error social-error">{{data.validationError}}</div>-->
+            				</div>
+            			</div>
+                    </div>
+    			</div>
+                <div class="slider-footer bottom-footer cms-slider-footer-btns" ng-class="{'no-shadow':showSettingsSection}">
+                    <button type="button" class="btn btn-white top-btn" ng-hide="showSettingsSection" ng-click="openSettingsSlider(true)">Settings</button>
+                    <button type="button" class="btn save-btn btn-blue" ng-disabled="disableSave" ng-click="saveSocialLink()">Save</button>
+                </div>
+            </div>
+			
+		</div>
+	</div>
+    <!-- <div class="select-all-group font13 jd-padding-0">
+        <div class="show-all-txt-div">Show all on</div>
+        <div class="jd-circular-checkbox square header-option-style">
+            <label class="inline-display">
+                <input type="checkbox"  ng-model="showAllOnHeader" ng-change="selectAllHeaderLinks()" id="social-all-header">
+                <label for="social-all-header" class="cursor-pointer">
+                    <span></span>
+                    <span class="pos-rel header-txt-style">Header</span>
+                </label>
+            </label>
+        </div>
+        <div class="jd-circular-checkbox square header-option-style">
+            <label class="inline-display">
+                <input type="checkbox" class="footer-checkbox" ng-model="showAllOnFooter" ng-change="selectAllFooterLinks()" id="social-all-footer">
+                <label for="social-all-footer" class="cursor-pointer">
+                    <span></span>
+                    <span class="pos-rel header-txt-style">Footer</span>
+                </label>
+            </label>
+        </div>
+    </div> -->
+    <!-- <div class="select-all-group font13 jd-padding-0">
+        <div class="pos-rel font-popover header-option-style">
+            <div class="pos-rel inline font-icon-holder" ng-click="showFontPopOver();">
+                <div class="fake-div"></div>
+                <div class="font-icon-style paddingL10 pos-rel">
+                    <i class="icon-fontDropdown icon-font-style jd-color-inherit"></i>
+                </div>
+            </div>
+            <div class="popover fade in jd-font-roboto noBorder control-popup" ng-class="{'show':showFontPopover}">
+                <div class="arrow"></div>
+                <div class="popover-content">
+                    <div class="font-filter">
+                        <input type="text" ng-model="fontSearchKey" ng-change="filterFonts()" placeholder="Search Font"/>
+                        <span class='icon-holder' ng-click="fontSearchKey='';filterFonts();" ng-class="{'icon-search':!fontSearchKey,'icon-close-thin':fontSearchKey}"></span>
+                    </div>
+                    <div class="font-list">
+                        <div ng-repeat="font in filteredFonts" class="toolbar-action submenu-txt pos-rel" style="font-family:{{font.dataContent}}" ng-click="selectFont(font)">
+                            <i class="icon-clickNew selected-font-icon" ng-show="selectedTextFont == font.dataContent"></i>
+                            <div class="font-name">{{font.text}}</div>
+                        </div>
+                        <div ng-show="!filteredFonts.length" class="font-name no-font-match">No Matches Found.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="paddingT5 select-single-group clearfix" ng-class="{'disabled':data.linkUrl == ''}">
+        <div class="pull-left width-23">Show on</div>
+        <div class="pull-left width-38 paddingL4P">
+            <span class="jd-circular-checkbox square">
+                <label>
+                    <input type="checkbox" ng-model="data.showOnHeader" ng-change="!data.showOnHeader && untickShowAllOnHeader()" id="header-{{$index}}">
+                    <label for="header-{{$index}}" class="cursor-pointer">
+                        <span class="vertical-aligned-icon checkbox-span"></span>
+                        <span class="vertical-aligned-icon paddingL4">Header</span>
+                    </label>
+                </label>
+            </span>
+        </div>
+        <div class="pull-left width-38 align-right paddingR1P web-footer-align">
+            <span class="jd-circular-checkbox square">
+                <label>
+                    <input type="checkbox" ng-model="data.showOnFooter" ng-change="!data.showOnFooter && untickShowAllOnFooter()" id="footer-{{$index}}">
+                    <label for="footer-{{$index}}" class="cursor-pointer">
+                        <span class="vertical-aligned-icon checkbox-span"></span>
+                        <span class="vertical-aligned-icon paddingL4">Footer</span>
+                    </label>
+                </label>
+            </span>
+        </div>
+    </div> -->
+</div>
+                        

@@ -1,0 +1,156 @@
+<div class="cover-img-section generic-slider {{genericSlider.currentSection}} {{genericSlider.sectionToShow || ''}}" ng-if="!!genericSlider.currentSection" ng-class="{'mobile-slider':isMobile}">
+    <div class="animate-section-overlay" ng-show="genericSlider.showSlider"></div>
+    <div jd-animate-section="right" class="animate-slider jd-animate-new" start-animation="genericSlider.showSlider" ng-style="genericSlider.sliderStyleObj" slide-time="200" slider-width={{bgImgSliderWidth}} on-animate-complete="imageSliderVisible()">
+        <div class="jd-animate full-height slider-shadow">
+            <jd-moblie-header options="genericSlider.headerOptions"> </jd-moblie-header>
+            <div class="slider-body">
+                <div ng-show="genericSlider.currentSection == 'changeImg'" class="section-container">
+                    <!-- <div class="link-holder add-mul-img" ng-show="supplierId == 231">
+                        <div class="btn-holder">
+                            <div class="jd-btn-primary" ng-click="addExtraBgImage($event,'web',genericSlider.webImg)">Add multiple Images</div>
+                        </div>
+                    </div> -->
+                    <div class="">
+                        <!-- <div class="white-card-holder" ng-hide="genericSlider.sectionToShow && genericSlider.sectionToShow == 'animate'">
+                            <div class="align-flex">
+                                <div class="backaground-image-label">Background Image for Web</div>
+                                <div ng-click="showHideBackgroundImageModal(true,'web')" class="backaground-icon-label cursor-pointer" ng-show="genericSlider.webImg">
+                                    <i class="icon-trash"></i>
+                                </div>
+                            </div>
+                            <div class="link-holder" ng-click="showHideImageBackgroundPopup($event,'web');" ng-hide="genericSlider.webImg">
+                                <i class="icon-camera"></i>
+                                <span class="cover-add-text">Add Website View</span>
+                            </div>
+                            <div ng-show="genericSlider.webImg" class="cover-img" ng-click="genericSlider.changeImg('web')">
+                                <img ng-src="{{genericSlider.webImg}}">
+                                <div class="trash-container-icon jd-font-roboto">
+                                    <i class="icon-uploadImage"></i>
+                                    <span>Edit</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="white-card-holder" ng-hide="genericSlider.sectionToShow && genericSlider.sectionToShow == 'animate'">
+                            <div class="align-flex">
+                                <div class="backaground-image-label">Background Image for Mobile</div>
+                                <div ng-click="showHideBackgroundImageModal(true,'mobile')" class="backaground-icon-label cursor-pointer" ng-show="genericSlider.mobileImg">
+                                    <i class="icon-trash"></i>
+                                </div>
+                            </div>
+                            <div class="link-holder" ng-click="showHideImageBackgroundPopup($event,'mobile');" ng-hide="genericSlider.mobileImg">
+                                <i class="icon-camera"></i>
+                                <span class="cover-add-text">Add Mobile View</span>
+                            </div>
+                            <div ng-show="genericSlider.mobileImg" class="cover-img" ng-click="genericSlider.changeImg('mobile')">
+                                <img ng-src="{{genericSlider.mobileImg}}">
+                                <div class="trash-container-icon jd-font-roboto">
+                                    <i class="icon-uploadImage"></i>
+                                    <span>Edit</span>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="white-card-holder background-style-holder-mobile" ng-click="controlPanel.panelActionClick($event,'backgroundStyle',3)" ng-if="isMobile">
+                            <i class="icon-editImage paddingR10"></i>
+                            <span>Background Style</span>
+                        </div> -->
+                        <div class="margin-bottom-48 scroll-animation-effects" ng-hide="genericSlider.sectionToShow && genericSlider.sectionToShow == 'edit-image'">
+                            <div class="clearfix">
+                                <div class="col-md-12 scroll-effect-holder">
+                                    <div class="col-md-12 padding0 full-width">
+                                        <span class="paddingR1">SCROLL EFFECTS</span>
+                                        <jd-custom-popover ng-if='!!popoverOptions.popoverText' options="popoverOptions" ></jd-custom-popover>
+                                        <!-- <span class="info-popover-detail">
+                                            <i class="font16 icon-static-page cursor-pointer"></i>
+                                            <div class="show-scroll-popover popover fade bottom in ">
+                                                <div class="arrow"></div>
+                                                <div class="popover-content padding0">
+                                                    <div class="padding5">
+                                                        Bring your page to life by creating a unique scrolling experience, that will surprise and grab your user's attention.
+                                                    </div>
+                                                </div>  
+                                            </div>
+                                        </span> -->
+                                    </div>
+                                    <!-- <div class="left-menu-switch-button">
+                                        <jd-switch-button switch-button-checked="scrollOption.showScrollEffectOptions" jd-change="toggleScrollEffectOption()" editable="true"></jd-switch-button>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-12 scroll-effect-options">
+                                    <div ng-repeat="item in scrollEffectsObj" class="scroll-effect-repeat">
+                                        <label ng-show="item.show" for="{{item.inputId}}" class="col-md-3 marginB0 padding0 cursor-pointer effect-container scroll-effect-{{item.value}}" ng-click="item.onScrollEffectClick()" ng-class="{'disabled-label': item.disable}">
+                                            <input id="{{item.inputId}}" type="radio" name="scroll-effect" value="{{item.value}}" class="scroll-effect-radio" ng-model="scrollOption.scrollEffectRadio" ng-click="$event.stopPropagation();">
+                                            <div class="{{item.value}} scroll-effect"></div>
+                                            <div class="text-center label-text" style="margin-top: 5px;">{{item.label}}</div>
+                                        </label>
+                                        <div class="fake-click-div" ng-click="isMobile && item.onScrollEffectClick()" ng-mouseover="!isMobile && item.onScrollEffectClick(true)" ng-mouseleave="scrollOption.showRevealPop = false;" ng-show="item.disable"></div>
+                                    </div>
+                                    <div class="animation-helper-popover popover fade bottom in {{scrollOption.classNm || ''}}" ng-class="{'show': scrollOption.showRevealPop}">
+                                        <div class="arrow"></div>
+                                        <div class="popover-content padding0">
+                                            <div class="padding5">
+                                                <span>{{scrollOption.popUpText}}</span>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="genericSlider.currentSection == 'imageSeo'" class="seo-image-slider clearfix section-container">
+                    <div class="seo-body col-md-12 col-xs-12">
+                        <div class="title input-with-label">
+                            <label>ALTERNATIVE TEXT (ALT TAG)</label>
+                            <div class="display-inline info-icon-store alt-icon pos-rel" ng-class="{'tooltip-open':seoOptions.showPopup == 'alt-info'}">
+                                <span class="icon-static-page jd-font-inherit cursor-pointer"></span>
+                                <div class="arrow"></div>
+                                <div class="hybrid-shop-info popover fade bottom in position-absolute alt-info" ng-class="{'db':seoOptions.showPopup == 'alt-info'}">
+                                    <div class="popover-content padding0">
+                                        <div class="padding5"> Search engines (like Google) can't see images, but they can read Alternate Text. Add a meaningful description to every image to push your pages higher up on search results and boost your SEO.
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                            <textarea type="text" class="imageAltText form-control" ng-model="seoImageOptions.imageAltText"></textarea>
+                        </div>
+                        <div class="title input-with-label">
+                            <label>TITLE TEXT (TITLE TAG)</label>
+                            <div class="display-inline info-icon-store title-icon pos-rel" ng-class="{'tooltip-open':seoOptions.showPopup == 'title-info'}">
+                                <span class="icon-static-page jd-font-inherit cursor-pointer tooltip-icon"></span>
+                                <div class="arrow"></div>
+                                <div class="hybrid-shop-info popover tooltip fade bottom in position-absolute title-info" ng-class="{'db':seoOptions.showPopup == 'title-info'}">
+                                    <div class="popover-content padding0">
+                                        <div class="padding5">Got more to say about this image? Add it here. People see this Title Text tooltip when they hover on the image.
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                            <textarea ng-model="seoImageOptions.imageTooltip" class="seoTooltipTextarea form-control">
+                            </textarea>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+            <div ng-show="genericSlider.currentSection == 'changeImg' || genericSlider.currentSection == 'imageSeo'" class="slider-footer btn-white-grad">
+                <button class="btn btn-primary blue-button btn-full-width ripple-effect {{genericSlider.currentSection}}" ng-click="genericSlider.saveChanges(genericSlider.sectionToShow)">
+                Save
+                </button>
+            </div>
+            
+        </div>
+        <!-- <div class="delete-background-image-modal fade in" ng-show="showdeleteBgImageModal">
+            <div class="image-modal-content" >
+                <div class="image-modal-header flex-center">
+                    <div class="icon-close-thin cursor-pointer flex-center justify-center" ng-click="showHideBackgroundImageModal(false)"></div>
+                </div>
+                <div class="image-modal-body flex-center justify-center flex-direction-column">
+                    <span>This will delete image from <span>{{genericSlider.removeFor}}</span> view</span>
+                </div>
+                <div class="image-modal-footer cursor-pointer flex-center justify-center" ng-click="genericSlider.removeImg()">
+                    <span>Delete Image</span>
+                </div>
+            </div>
+            <div class="image-modal-backdrop"></div>
+        </div> -->
+    </div>
+</div>

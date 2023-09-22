@@ -1,0 +1,251 @@
+<div id = "universalSearch" class = "gradient-Background" ng-class = "{'margin-top-60vw': fixedHeader,'voice-search-modal-open':showVoiceSearchModal,'for-cms notranslate':isCMS}" >
+	<div ng-show="showVoiceSearchModal"><voice-search-modals options='voiceSearchModalsOptions' ></voice-search-modals></div>
+	<div class="home-pg-container" ng-show = "views.homePage">
+	<div x-ng-if = "!universalSearchOptions.onlyFooter ||(universalSearchOptions.onlyFooter && views.minimizeClick)" class="jd-mobile-header uni-search-header universal-search header-fixed-top row jd-margin-0" ng-show="views.homePage">
+		<div x-ng-click="showHomeBar(400)" x-ng-if = "!universalSearchOptions.onlyFooter" 
+			ripple-effect="ripple-white-burger" ripple-overflow = "true" class="flex-display single-icon universal-search-burger-icon" x-ng-class = "{'universal-search-burger-icon-initial':!onLoadPage && !isApp, 'burger-icon-move-left':views.minimizeClick, 'burger-icon-transition-end': !isApp&& onLoadPage && initializingPage}">
+			<div class="icon-HDRburger icon-HDRburger1"></div>
+		</div>
+		<div x-ng-if = "!universalSearchOptions.onlyFooter" class="universal-greeting-text-size" ng-class = "{'universal-greeting-text-size-initial':!isApp && !onLoadPage, 'universal-greeting-text-size-hide':views.minimizeClick}" ng-init="greeting()">
+			<span jd-lang="{{greetingLabel.greeting}}"></span>&nbsp;<span style="text-transform: capitalize;">{{greetingLabel.name}}</span>
+		</div>
+		<div class="bottom-div" ng-class="{'input-div-change':views.minimizeClick}">
+			<div class="universal-greeting-label">
+				<span jd-lang="c_whatAreYouLookingFor">What are you looking for?</span>
+				<span id="back-icon" class = "back-btn-class" ng-class="{'back-btn-class-initial': views.minimizeClick}" ng-mobile-click = "universalSearch.toUniversalSearch()"><i class = "icon-HDRback"></i></span>
+			</div>
+			<!-- <div class="input-div" ng-click = "universalSearch.changeViewToSearch()">
+				<div class = "input-box-padding">
+					<span ng-show="!filter.isFilterApplied" class = "search-icon-padding">
+						<i class="icon-HDRsearch"></i>
+					</span>
+					<span ng-show="filter.isFilterApplied" class = "filter">{{filter.displayText}}<i class = "icon-close-thin" ng-click = "closeFilter()"></i></span>
+					<input type="text" class="universal-search-input" ng-class = "{'input-filter':filter.isFilterApplied}" x-ng-model = "input.search" x-ng-change = "universalSearch.searchFunction(input.search)" placeholder="Search" onblur = "this.placeholder = 'Search'" />
+						<span class = "search-mic" ng-hide = "views.hideMicSearch || hideMic" x-ng-mobile-click ="onSearchMicClick()" jd-voice-search="voiceSearchOptions" jd-ripple-click><i class = "icon-microphone"></i></span>
+						<span class = "uni-loader right-icons" ng-hide = "views.hideLoaderSearch"></span>
+						<span class = "right-icons" ng-hide = "views.hideCancelSearch" x-ng-mobile-click ="universalSearch.cancelSearch()" jd-ripple-click><i class = "icon-HDRcross"></i></span>
+				</div>
+			</div> -->
+			
+		</div>
+	</div>
+<!-- 	<div class = "sec-scroll-header-app" ng-if = "isApp && !universalSearchOptions.onlyFooter" ng-hide = "views.minimizeClick" ng-class = "views.showSecondHeader?'transition-header':''">
+	<div
+			class="flex-display single-icon universal-search-burger-icon">
+			<div class="universal-single-icon" x-ng-hide = "views.minimizeClick">
+				<div class="icon-burgerCMS" ng-mobile-click="showHomeBar()"></div>
+			</div>
+		</div>
+			<div class="input-div" ng-class="{'input-div-change':views.minimizeClick}" ng-click = "universalSearch.changeViewToSearch()">
+				<div class = "input-box-padding">
+				<span id="back-icon" class = "back-btn-class" x-ng-show = "views.minimizeClick" ng-mobile-click = "universalSearch.toUniversalSearch()"><i class = "icon-pagination-left grey-icon"></i></span>
+					<span ng-show="!filter.isFilterApplied" class = "search-icon-padding">
+						<i class="icon-search grey-icon"></i>
+					</span>
+					<span ng-show="filter.isFilterApplied" class = "filter">{{filter.displayText}}<i class = "icon-close-thin" ng-click = "closeFilter()"></i></span>
+					<input type="text" class="universal-search-input" ng-class = "{'input-filter':filter.isFilterApplied}" x-ng-model = "input.search" x-ng-change = "universalSearch.searchFunction(input.search)" placeholder="Search" onfocus = "this.placeholder = ''" onblur = "this.placeholder = 'Search'" />
+						<span class = "search-mic" ng-hide = "views.hideMicSearch" x-ng-mobile-click ="onMicButtonClick()" jd-voice-search="voiceSearchOptions"><i class = "icon-microphone"></i></span>
+						<span class = "uni-loader right-icons" ng-hide = "views.hideLoaderSearch"></span>
+						<span class = "right-icons" ng-hide = "views.hideCancelSearch" x-ng-mobile-click ="universalSearch.cancelSearch()"><i class = "icon-Crossmark grey-icon"></i></span>
+				</div>
+			</div>
+	</div> -->
+	<div x-ng-if = "!universalSearchOptions.onlyFooter" class="container universal-search-tabs-container" x-ng-hide = "views.minimizeClick||!views.homePage" x-ng-class = "{'load-with-anim':onLoadPage}">
+		<jd-upgrade-trial></jd-upgrade-trial>
+		<ul class = "list">
+			<li x-ng-repeat="x in tabsArray track by $index"
+				class = "universal-search-tabs premium-crown"
+				x-ng-click="universalSearch.goToByKeyword(x,'tabs')"
+				jd-package-permissions={{x.permissionKey}}>
+				<div class="text-align-element circle-tab" style="position: relative;" jd-ripple-click>
+					<span class = "tabs-icon {{x.iconClass}}">
+						<span class="icon-2 {{x.iconClass+2}}"></span>
+					</span>
+				</div>
+				<span class="count-badge" ng-if="x.props" style="opacity:1;">
+					<jd-vendor-react props="x.props" component="JdNotification"></jd-vendor-react>
+			  	</span>
+				<div class = "tabs-text" jd-lang="{{x.jdLangId||x.label}}"></div></li>
+		</ul>
+	</div>
+	</div>
+	<div class="search-results" ng-class = "{'overlay-uniSearch':raiseUniSearch, 'search-results-manual':appName == 'voice-app'}" x-ng-show="views.minimizeClick && views.homePage">
+		<div class = "recent-searches" x-ng-hide = "views.hideRecentSearch">
+			<div class="labels" x-ng-show="recentSearches.length">
+				<span>Recent Searches</span>
+				<span x-ng-click="clearRecentSearch()">Clear All</span>
+			</div>
+			<ul>
+			<li class="search-option" x-ng-repeat = "x in recentSearches track by $index" x-ng-click = "universalSearch.goToByKeyword(x)"><span class = "label-left"><i x-ng-class = "x.iconClass"></i></span><span class = "label-right">{{x.displayName}}</span></li>
+			</ul>
+		</div>
+		<div class = "recent-searches" x-ng-hide = "!views.hideRecentSearch && views.hideNoResult">
+			<!-- <div class="labels" x-ng-hide = "!views.hideNoResult">Results</div> -->
+			<ul id="list" x-ng-hide = "!views.hideNoResult">
+			<li class="search-option" ng-show="showRoutesInSearch == 'ROUTES'" x-ng-repeat = "x in resultList" x-ng-click = "universalSearch.goToByKeyword(x)"><span class = "label-left  {{x.displayName}}"><i x-ng-class = "x.iconClass"></i></span><span class = "label-right"  search-result="{{x.displayName}}" search-key="{{input.search}}" jd-search-highlight="input.search" ></span>
+			</li>
+			<li class="search-option" ng-show="showRoutesInSearch == 'PRODUCTS'" x-ng-repeat = "x in resultList" x-ng-click = "universalSearch.goToByKeyword(x)"><span class = "label-left"><i x-ng-class = "x.iconClass"></i></span><span class = "label-right" search-result="{{x.name}}" search-key="{{input.search}}" jd-search-highlight="input.search"></span>
+			</li>
+			<li class="search-option" ng-show="showRoutesInSearch == 'MANUAL'" x-ng-repeat = "x in resultList" x-ng-click = "universalSearch.goToByKeyword(x)"><span class = "label-left"><i x-ng-class = "x.iconClass"></i></span><span class = "label-right"  search-result="{{x.title}}" search-key="{{input.search}}" jd-search-highlight="input.search"></span>
+			</li>
+			</ul>
+		<div class = "black" x-ng-hide = "views.hideNoResult">
+		<img class = "image" src = "https://image1.jdomni.in/jdomni_email/045SearchNo.svg">
+		<div class = "text-no-result">No Results Found</div>
+		<!-- <div class = "text-try-again" x-ng-mobile-click = "universalSearch.cancelSearch()">TRY AGAIN</div> -->
+		</div>
+		</div>
+	</div>
+	<!-- <div class="universal-search-footer" x-ng-class = "{'universal-search-footer-justify-content':hideMic, 'hidden-element-footer':!isApp && appName != 'voice-app','box-shadow-unset':universalSearchOptions.hideShadow}" x-ng-hide = "!views.homePage||universalSearchOptions.hideFooter">
+		<div class="uni-icon-container" x-ng-class = "!isApp && appName != 'voice-app' ? 'uni-icon-container-initial' : ''" jd-ripple-click = "universalSearch.goTo('/universalSearch')">
+			<div class='icon-holder'>
+				<i class='icon-footer_cHome' x-ng-class="{'blue-color': selectedTabOnFooter == 'home'}"></i>
+			</div>
+			<span class="small-font" x-ng-class="{'blue-color': selectedTabOnFooter == 'home'}" jd-lang="c_home">Home</span>
+		</div>
+		<div ng-if = "supplierType != 'BASICS'"  class="uni-icon-container" x-ng-class = "!isApp && appName != 'voice-app' ? 'uni-icon-container-initial' : ''"  jd-ripple-click = "universalSearch.goToByKeyword(footerParams.orders,'tabs')">
+			<span class="count-badge count" style="opacity:1;">
+				<jd-vendor-react props="onlineOrderProps" component="JdNotification"></jd-vendor-react>
+		  	</span> -->
+			<!--<span class = "count" x-ng-class = "!isApp && appName != 'voice-app' ? 'count-initial' : ''" x-ng-show="footerCounts.orders"><span>{{footerCounts.orders}}</span></span> -->
+			<!-- <div class='icon-holder'>
+				<i class="icon-HDRcart" x-ng-class="{'blue-color': selectedTabOnFooter == 'orders'}"></i>
+			</div>
+			<span class="small-font" x-ng-class="{'blue-color': selectedTabOnFooter == 'orders'}" jd-lang="c_orders">Orders</span>
+		</div>
+		<div ng-if = "bookingEnabled" class="uni-icon-container" x-ng-class = "!isApp && appName != 'voice-app' ? 'uni-icon-container-initial' : ''" jd-ripple-click = "universalSearch.openSlider('booking')">
+			<div class='icon-holder'>
+				<i class="icon-calenderForm" x-ng-class="{'blue-color': selectedTabOnFooter == 'booking'}"></i>
+			</div>
+			<span class="small-font" x-ng-class="{'blue-color': selectedTabOnFooter == 'booking'}" jd-lang="c_booking">Bookings</span>
+		</div>
+		<div class="uni-icon-container" x-ng-class = "!isApp && appName != 'voice-app' ? 'uni-icon-container-initial' : ''" jd-ripple-click = "universalSearch.goToByKeyword(footerParams.inbox,'tabs')">
+			<span class="count-badge count" style="opacity:1;">
+				<jd-vendor-react props="enquiryUnreadProps" component="JdNotification"></jd-vendor-react>
+		  	</span> -->
+			<!--<span class = "count" x-ng-class = "!isApp && appName != 'voice-app' ? 'count-initial' : ''" x-ng-show="footerCounts.inbox"><span>{{footerCounts.inbox}}</span></span> -->
+			<!-- <div class='icon-holder'>
+				<i class="icon-cntMail" x-ng-class="{'blue-color': selectedTabOnFooter == 'inbox'}"></i>
+			</div>
+			<span class="small-font" x-ng-class="{'blue-color': selectedTabOnFooter == 'inbox'}" jd-lang="c_Inbox">Inbox</span>
+		</div>
+		<div ng-if = "supplierType == 'BASICS'" class="uni-icon-container" x-ng-class = "!isApp && appName != 'voice-app' ? 'uni-icon-container-initial' : ''"  jd-ripple-click = "universalSearch.goToByKeyword(footerParams.onlinePayments,'tabs')">
+			<span class="count-badge count" style="opacity:1;">
+				<jd-vendor-react props="onlineOrderProps" component="JdNotification"></jd-vendor-react>
+		  	</span> -->
+			<!--<span style = "z-index: 1;" class = "count" x-ng-class = "!isApp ? 'count-initial' : ''" x-ng-show="footerCounts.onlinePayments"><span>{{footerCounts.onlinePayments}}</span></span> -->
+			<!-- <div class='icon-holder'>
+				<i style = "position:relative;" class = "icon-Glpayment" x-ng-class="{'blue-color': selectedTabOnFooter == 'onlinePayments'}"></i>
+			</div>
+			<span class="small-font" x-ng-class="{'blue-color': selectedTabOnFooter == 'onlinePayments'}" jd-lang="c_payments">Payments</span>
+		</div>
+		<div  class="uni-icon-container" x-ng-class = "!isApp && appName != 'voice-app' ? 'uni-icon-container-initial' : ''" jd-ripple-click = "universalSearch.manualRedirect()">
+			<div class='icon-holder'>
+				<i class="icon-HDRhelp" x-ng-class="{'blue-color': selectedTabOnFooter == 'manual'}"></i>
+			</div>
+			<span class="small-font" x-ng-class="{'blue-color': selectedTabOnFooter == 'manual'}" jd-lang="c_help">Help</span>
+		</div>
+	</div> -->
+		<div ng-show="showBellIconTop && !views.voiceSearch && !views.showSecondHeader" jd-ripple-click="openBellIcon(100)"
+			class="flex-display single-icon universal-search-bell-icon" x-ng-class = "{'universal-search-burger-icon-initial':!onLoadPage && !isApp, 'bell-icon-move-right':views.minimizeClick, 'burger-icon-transition-end': !isApp&& onLoadPage && initializingPage}">
+			<div class="universal-single-icon" style = "position:relative;">
+				<div class="icon-bellNotification bellIcon"></div>
+				<span class='count count-badge red-badge small' ng-show="notifCount">{{notifCount}}</span>
+			</div>
+		</div>
+		<div id="downloadAppModal" class="modal fade jd-font-roboto" role="dialog" data-keyboard="true" data-backdrop="static" tabindex="-1">
+			<div class="modal-vertical-alignment-helper confirm-domain-modal-mobile" ng-blur="downloadAppModal.closeModal()">
+				<div class="modal-dialog modal-vertical-align-center">
+					<div class="modal-content">
+						<div class="modal-body clearfix">
+						<div class = "main-row">
+							<i class="icon-close-thin pull-right close-icon" aria-hidden="true" ng-click = "downloadAppModal.closeModal()"></i>
+						</div>
+						<img class = "mic-image" x-ng-src ="https://image1.jdomni.in/jdomni_email/downloadAppMic_2011192000.png">
+						<div class = "main-row">
+							<div style = "font-weight: 500;font-size: 17px;" >Excited About Voice Assistant?</div>
+							<div style = "font-weight: 300;font-size: 14px;">Download <b>Jd YOW</b> App Now</div>
+						</div>
+						<div class = "main-row">
+							<button class = "button" ng-click = "onDownloadClick()" >Download Now</button>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div id="notificationModalMobile" class="modal fade jd-font-roboto" role="dialog" data-keyboard="true" data-backdrop="static" tabindex="-1">
+			<div class="modal-vertical-alignment-helper confirm-domain-modal-mobile notification-modal" ng-blur="bellIconModalData.closeModal()">
+				<div class="modal-dialog modal-vertical-align-center">
+					<div class="modal-content">
+						<div class="clearfix">
+							<h4 class="modal-title popup-alert-title pull-left">
+									Notification
+							</h4>
+							<i class="icon-close-thin pull-right close-icon" aria-hidden="true" ng-click = "bellIconModalData.closeModal()"></i>
+						</div>
+						<div class="modal-body clearfix">
+						<div class="domain-mobile uni-search-domain" ng-show="supplierType != 'B2B'">
+							<div class="jd-padding-0 row">
+						        <jd-domain-renew-expiry options="domainRenewOptions"  ng-if="initDirective"></jd-domain-renew-expiry>
+						        <div>
+						        	<jd-kyc-notification kyc-options="universalSearchOptions.kycOptions" ng-show="universalSearchOptions.kycOptions.show"></jd-kyc-notification>
+						        </div>
+						    </div>
+						</div>
+						<!--Commenting the below part of code as a part of enhancement. Refer Ticket #95517 -->
+						<!-- <div ng-show="demoAccount && !isExpired" class="trial-account-section uni-search-trial" ng-class="{'display-Block':trialDays!='start','trial-top-margin':notificationCount > 2}">
+					            <div class="clearfix" ng-class="{'flex-center' : (updateRequest != '1' && !accountProgress) && trialDays!='start'}">
+					                <div class="col-xs-2">
+					                    <span style = "font-size: 41px;margin-left: 2px;" class="icon-Watch"></span>
+					                </div>
+					                <div class="col-xs-10 text-left" ng-class="{'abc':accountProgress || updateRequest}">
+					                    <div class="white-color trial-text" ng-show="(trialDays=='start' || (accountProgress && trialDays=='start')) && !updateRequest">
+					                        Your trial just started.  
+					                        
+					                    </div>
+					                    <div ng-show="trialDays!='start'" class="white-color trial-text">
+					                        <div ng-show="trialDays == 0">
+					                            your account expires today.
+					                        </div>
+					                        <div ng-show="trialDays != 0" class="jd-font-roboto-medium">
+					                            {{trialDays}} <span ng-show="trialDays == 1">day </span> 
+					                            <span ng-show="trialDays != 1">days </span>left in your trial. 
+					                        </div> 
+					                    </div>
+					                    <div class="white-color upgrade-in-progress" ng-show="accountProgress || updateRequest">
+					                        Your Account upgrade request is in process.
+					                    </div>
+					                </div>
+					                    <div ng-show="(updateRequest != '1' && !accountProgress) && (trialDays=='start' || (accountProgress && trialDays=='start')) && !updateRequest" class="cursor-pointer btn upgrade-btn" ng-click="openUpgradeModal()">
+					                            Upgrade Now
+					                        </div>
+					            </div>
+					            <div ng-show="(updateRequest != '1' && !accountProgress) && trialDays!='start'" class="cursor-pointer btn upgrade-btn" ng-click="openUpgradeModal()">UPGRADE NOW</div>
+					        </div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id = "uniSearchBackDrop" class = "uniSearch-BackDrop modal-backdrop fade in" style="display: none"></div>
+			<div class="uni-search-mobile-loader" ng-show="universalSearch.showLoader">
+		        <div class="loader-backdrop"></div>
+		       <div class="white-bg">
+		            <div class="circle-loader"></div>
+		        </div>
+		    </div>
+	
+	<jd-voice-search-area ng-show="views.voiceSearch" options = "universalSearch" voice-search-options = "voiceSearchOptions"></jd-voice-search-area>
+		<span ng-init="showFooter()"></span>
+
+    <div class="language-pop" ng-class="{'animate-to-top': langSelected}">
+        <span jd-lang="c_languageChangedTo"> </span>
+        <span>&nbsp;{{displayLanguageName}}</span>
+    </div>
+    <div ng-show = "isManual && showManualLoader" class = "manual-loader">
+    	<div class = "white-circle">
+    		<div class = "internal-loader"></div>
+    	</div>
+    </div>
+</div>

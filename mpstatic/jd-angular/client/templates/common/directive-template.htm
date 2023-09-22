@@ -1,0 +1,560 @@
+<!--------------------------------------------- Import Modal For Template User  ------------------------------------------------------>
+<script id="addInventoryForTemplateModal.htm" type="text/ng-template">
+	<div class="modal hide fade add-inventory-modal" tabindex="-1" role="dialog" aria-labelledby="imageUploadModal" aria-hidden="true">
+		<div class="modal-dialog jd-import-modal" style="width:400px;">
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<button type="button" class="close cancelBtn" ng-click="closeModal();"   data-dismiss="modal" tabindex="15000"><i class="icon-cross"></i></button>
+					<h3 class="modal-title font-thin font-20">Add New Batch</h3>
+				</div>
+				<!-- <div ng-show="uploadOption.errorMsg" class="jd-web-validation-error top-header-error-display ">
+					<i class="icon-warning jd-color-inherit"></i>{{uploadOption.errorMsg}}
+				</div>
+				<div ng-show = "uploadOption.fileStatus=='success'" class="validation-msg">
+						<i class="icon-static-page validation-msg-icon jd-color-inherit"></i>Your file is being validated.Please check progress in Import History.
+				</div> -->	
+	            <div class="modal-body">
+	                <jd-mrp-city options="cityMrpOptions"></jd-mrp-city>
+	                
+	                <div ng-class="{'jd-validation-error':validate.barcode}" class="paddingT10">
+	                    <label class="jd-font-roboto-medium">Barcode <span class="grey-text jd-font-roboto">(Optional)</span></label>
+	                    <div class="auto-generate-input-code-holder product-inventory-section-form" style="width: 350px;">
+							<input type="text" class="form-control barcode-field" placeholder="Enter Barcode here" maxlength="20" ng-model="addInventory.barcode" ng-blur="validatebarcode()" ng-change="validate.barcode=false;">
+							<a ng-click="generateBarcode()" class="auto-generate-link jd-font-roboto" ng-show="!addInventory.barcode">Generate Barcode</a>
+							<div class="jd-error-msg" ng-show="validate.barcode">
+								Barcode should be blank or atleast 3 character long.
+							</div>
+						</div>
+					</div>
+					<div class="paddingT10">
+						<label><input type="checkbox" ng-model="addInventory.isDefault">Set as default for Virtual Store</label>
+					</div>
+	            </div>
+				<div class="modal-footer">
+					<button class="btn jd-btn-primary pull-left" ng-click='closeModal();'>Cancel</button>
+					<button class="btn jd-btn-primary" ng-click="closeModal(true);">Save</button>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</script>
+
+<script id="editInventoryForTemplateModal.htm" type="text/ng-template">
+<div class="modal hide fade edit-inventory-modal" id="editInventoryForTemplateModal" tabindex="-1" role="dialog" aria-labelledby="imageUploadModal" aria-hidden="true">
+	<div class="modal-dialog jd-import-modal" style="width: 900px;">
+		<div class="modal-content">
+		
+			<div class="modal-header jd-font-roboto">
+				<button type="button" class="close cancelBtn" ng-click="closeModal()"><i class="icon-cross"></i></button>
+				<h3 class="modal-title font-thin font-20">Edit Stock for {{productInfo.productName}}</h3>
+			</div>
+			<div ng-show="error.cityMrp || error.barcode" class="jd-web-validation-error top-header-error-display ">
+				<i class="icon-warning jd-color-inherit"></i><span ng-show="error.cityMrp">{{error.errMsg}}</span>
+				<span ng-show="error.barcode">Barcode should be blank or atleast 3 character long.</span>
+			</div>
+            <div class="modal-body">
+               <!--  <table>
+                	<tr>
+                		<th>Batch / <br>Lot No.</th>
+                		<th>Added Date</th>
+                		<th>Barcode</th>
+                		<th>MRP</th>
+                		<th>City</th>
+                		<th>Status</th>
+                		<th>Display <br> on Virtuel Store</th>
+                	</tr>
+                	<tr ng-repeat="stock in editInventoryList.items" ng-init="setDefaultValue($index,stock);">
+                		<td>{{stock.consignmentNo}}</td>
+                		<td>
+                			{{stock.creationTimestamp|jdDate}},<br>
+							<span class="font-weight-normal font12">{{stock.creationTimestamp|jdTime}}</span>
+                		</td>
+                		<td>
+                			<input type="text" class="form-control barcode-field " jd-regex-validation="regexForBarcode" remove-rgex="negateBarcodeRegex" maxlength="20" ng-model="stock.barcode" ng-blur="editInventoryList.validatebarcode()" ng-class="{'jd-validation-error':barcodeError}">
+                		</td>
+                		<td colspan="2" ng-controller="SellerAdmin.Inventory.Controller.editInventoryCityMrp" ng-init="initializeCityMrp(stock)">
+                			<jd-mrp-city options="cityMrpOptions" hide-error-message="true"></jd-mrp-city>
+                		</td>
+                		<td>
+                			<select ng-model="stock.isActive" class="form-control">
+							  <option ng-selected="{{stock.isActive == true}}" value="true">Active</option>
+							  <option ng-selected="{{stock.isActive == false}}" value="false">Inactive</option>
+							</select>
+                		</td>
+                		<td>
+                			<span ng-show="editInventoryList.defaultStockIndex == $index" ng-click="editInventoryList.defaultStockIndex=-1">Default</span>
+                			<span ng-hide="editInventoryList.defaultStockIndex == $index" ng-click="editInventoryList.defaultStockIndex=$index">Set as Default</span>
+                		</td>
+                	</tr>
+                </table> -->
+				<div class="row margin-left-right-0 p10B">
+					  <div class="col-xs-2 jd-text-bold cell jd-padding-right-0 batch-col">
+						  Batch / <br>Lot No.
+					  </div>
+					  <div class="col-xs-1 jd-text-bold cell jd-padding-right-0 jd-padding-left-0 date-col">
+						  Added Date
+					  </div>
+					  <div class="col-xs-2 jd-text-bold cell jd-padding-right-0 jd-padding-left-0">
+						  Barcode
+					  </div>
+					  <div class="col-xs-2 jd-text-bold cell jd-padding-right-0 jd-padding-left-0 mrp-col">
+						  MRP
+					  </div>
+					   <div class="col-xs-2 jd-text-bold cell jd-padding-right-0 jd-padding-left-0 city-col">
+						  City
+					  </div>
+					   <div class="col-xs-1 jd-text-bold cell jd-padding-right-0 jd-padding-left-0 status-col">
+						  Status
+					  </div>
+					   <div class="col-xs-2 jd-text-bold cell ">
+						  Display on <br> Virtual Store
+					  </div>
+				</div>
+            	
+            	<div jd-infinite-scroll options="editInventoryList" style="max-height:220px;overflow-y:auto;overflow-x: hidden;">
+				    <div class="row margin-left-right-0 product-row jd-font-roboto" ng-repeat="stock in editInventoryList.items" ng-init="setDefaultValue($index,stock);">
+						  <div class="col-xs-2 jd-text-bold cell jd-padding-right-0 batch-details">
+							 {{stock.consignmentNo}}
+						  </div>
+						  <div class="col-xs-1 jd-text-bold cell jd-padding-right-0 jd-padding-left-0 date-setails">
+							  {{stock.creationTimestamp|jdDate}},<br>
+								<span class="font-weight-normal font12">{{stock.creationTimestamp|jdTime}}</span>
+						  </div>
+						  <div class="col-xs-2 jd-text-bold cell jd-padding-right-0 jd-padding-left-0">
+							 <input type="text" class="form-control barcode-field barcode-input" ng-disabled="!createProductPg" jd-regex-validation="regexForBarcode" remove-rgex="negateBarcodeRegex" maxlength="20" ng-model="stock.barcode" ng-blur="editInventoryList.validatebarcode()" ng-class="{'jd-validation-error':barcodeError}">
+						  </div>
+						  <div class="col-xs-4 jd-text-bold cell jd-padding-right-0 jd-padding-left-0 width30per" ng-controller="SellerAdmin.Inventory.Controller.editInventoryCityMrp" ng-init="initializeCityMrp(stock)">
+							<jd-mrp-city options="cityMrpOptions" hide-error-message="true"></jd-mrp-city>
+						  </div>
+						  <div class="col-xs-1 jd-text-bold cell jd-padding-right-0 jd-padding-left-0 status-box">
+							<select ng-model="stock.active" class="form-control" ng-disabled="!createProductPg">
+								  <option ng-selected="{{stock.active==true}}" value="true">Active</option>
+								  <option ng-selected="{{stock.active==false}}" value="false">Inactive</option>
+							</select>
+						  </div>
+						   <div class="col-xs-2 jd-text-bold cell default-box-style" ng-class="{'disabled': !createProductPg}">
+							  <span ng-show="editInventoryList.defaultStockIndex == $index" ng-click="editInventoryList.defaultStockIndex=-1"><i class = "icon-clickNew"></i>Default</span>
+	                		  <span ng-hide="editInventoryList.defaultStockIndex == $index" ng-click="editInventoryList.defaultStockIndex=$index"><span class = "default-icon"></span>Set as Default</span>
+						  </div>
+					</div>
+				</div>
+			
+			</div>
+			<div class="modal-footer"  ng-hide="!createProductPg">
+				<button class="btn jd-btn-primary pull-left" ng-click="closeModal()">Cancel</button>
+				<button class="btn jd-btn-primary" ng-click="closeModal(true)">Save Changes</button>
+			</div>
+		
+		</div>
+	</div>
+</div>
+</script>
+<!--------------------------------------------- Import Modal For Template User  END  ------------------------------------------------------>
+
+<!--------------------------------------------- search autosugest START  ------------------------------------------------------>
+<script id="directive/searchAutosuggest.htm" type="text/ng-template">
+		<div class="search-auto-suggest pos-rel" style="width:100%" id="autosuggest-div">
+			<div class="clearfix pos-rel">
+				<span class="icon-search color-mod search-icon" ng-show="!options.hideSearchIcon"></span>
+				<input type="text" ng-class="{'search-textbox':!options.hideSearchIcon, 'jd-web-validation-error':fieldBlank || options.showError}" placeholder="{{options.placeholder}}" maxlength="{{maxLenForSearch}}" tabindex="{{tabIndex}}" name="{{termName}}" ng-model="searchTerm" ng-change="onsearchKeyChange()" class="form-control {{options.customClass}}" ng-focus="onsearchKeyChange(true);options.setFocusToSearch=true" id="{{termId}}" ng-keydown="handleOnKeyDown($event)" autocomplete="off" jd-enter="onProductSelect(false)" ng-blur="options.validateField();options.setFocusToSearch=false" ng-hide="disableSearch" jd-set-focus="options.setFocusToSearch" set-false="true">
+				<!-- <span ng-show="showCustomLoader" class="jd-in-loader icon-loader jd-ajax-loader"></span> -->
+
+				<div class="search-info-popup popover fade bottom in" ng-hide="!showInfoPopup||options.hideInfoPopup" ng-if="options.popoveTemplate">
+					<div class="arrow"></div>
+					<div class="popover-content">
+						<div class="popup-header">Search your product in Jd Omni Catalogue</div>
+						<span>Product form Jd Omni Catalogue are complete with Product images and specifications to save your time.</span>
+					</div>  
+				</div>
+
+				<div ng-show="disableSearch" class="pos-rel form-control product-search-input product-search-input-disabled">
+					<div  class="jd-truncate-with-ellipsis content-div">
+						{{searchTerm}}
+					</div>
+					<span class="icon-close-thin remove-selected-item" ng-click="options.resetSearch()"></span>
+				</div>
+				<span ng-show="showCustomLoader" class="loading-image">
+					<img src="https://image1.jdomni.in/jdomni_email/loading_2011192035.gif?-1-VZJ-ver">
+				</span>
+				<span ng-show="options.showCrossIcon && searchTerm" ng-click="options.resetSearch()" class="search-cross-icon">
+					<i class="icon-close-thin"></i>
+				</span>
+			</div>
+			<div class="jd-autosuggest-fixed-footer autosuggest-holder" ng-show="showSuggestions && !stopSuggestionAfterCreate && (options.createText || searchResults.length || options.additionalSuggestionTemplates.length)">
+				<ul class="create-li autoSugest-ul">			
+					<li ng-if="options.createText && !showCreateOnEnd" class="border-bottom create-li position-result suggestion-list" ng-class="{'li-hover':selectedResult == 0}" ng-show="showSuggestions" ng-mousedown="onProductSelect(true)" style="padding-left:10px">
+						<span class="middle-align">
+							<span class="{{options.createNewIcon}} icon-plus-position plus-button font-20 create-text"></span>
+							<span class="create-text">{{options.createText}} </span>
+							<div class="jd-truncate-with-ellipsis create-field">
+								<span class="black-font"> '{{searchTerm}}'</span>
+							</div>
+						</span>
+					</li>
+				</ul>
+
+				<ul class="autoSugest-ul result-holder">
+					<li class="clearfix suggestion-list"  ng-class="{'li-hover':selectedResult == highLightIndex,'border-bottom':!$last || showCreateOnEnd}" ng-init="highLightIndex=$index+(options.createText && !showCreateOnEnd?1:0)" ng-repeat="result in searchResults" ng-mousedown="onProductSelect(true,result)" ng-include="options.searchListTemplate">
+					</li>
+				</ul>
+
+				<ul class="create-li autoSugest-ul shadow-grey">
+					<li ng-if="options.createText && showCreateOnEnd" class="fixed-footer create-li position-result suggestion-list" ng-class="{'li-hover':selectedResult == searchResults.length}" ng-show="showSuggestions" ng-mousedown="onProductSelect(true)" style="padding-left:10px">
+						<span class="middle-align">
+							<span class="{{options.createNewIcon}} icon-plus-position plus-button font-20 create-text"></span>
+							<span class="create-text">{{options.createText}} </span>
+							<div class="jd-truncate-with-ellipsis create-field">
+								<span class="black-font">'{{searchTerm}}'</span>
+							</div>
+						</span>
+					</li>
+				</ul>
+				<ul class="autoSugest-ul result-holder">
+					<li class="clearfix suggestion-list" ng-include="additionalTemplId" ng-repeat="additionalTemplId in options.additionalSuggestionTemplates" ng-mousedown="options.findCustomer(searchTerm, options.typeOfSearch, false)">
+					</li>
+				</ul>
+			</div>
+
+			<div class="jd-autosuggest-fixed-footer autosuggest-holder" ng-if="noItemFoundTemplate && showNoItemFound && showSuggestions && !searchResults.length">
+				<ul class="autoSugest-ul result-holder">
+					<li class="clearfix suggestion-list" ng-include="noItemFoundTemplate">
+					</li>
+				</ul>
+			</div>
+					
+		</div>	
+	</script>
+
+	<script type="text/ng-template" id="directive/searchListTemplate.htm">
+			<div class="position-result">
+				<div>
+					<p class="jd-break-word wrap_text" style="width:99%;">
+						<span><span search-result="{{result.name}}" search-key="{{searchTerm}}" jd-search-highlight></span></span>
+					</p>
+				</div>
+					<div>
+						{{result.productCount}} Products
+					</div>
+			</div>
+	</script>
+
+	<script type="text/ng-template" id="directive/searchProductType.htm">
+			<div class="position-result supplier-suggest">
+				<div>
+					<p class="suggestion-list">
+						<span><span search-result="{{result.name}}" search-key="{{searchTerm}}" jd-search-highlight></span></span>
+					</p>
+				</div>
+					<div>
+						in {{result.psv_node_name}}
+					</div>
+			</div>
+	</script>
+	
+	<script type="text/ng-template" id="directive/areaTemplate.htm">
+			<div class="position-result">
+				<div>
+					<p class="suggestion-list">
+						<span><span search-result="{{result}}" search-key="{{searchTerm}}" jd-search-highlight="searchTerm"></span></span>
+					</p>
+				</div>
+					
+			</div>
+	</script>
+	<script type="text/ng-template" id="directive/searchSupplier.htm">
+		<div class="position-result supplier-suggest">
+			<div class="company-name">
+				<span>
+					<div style="overflow: hidden;color:#333;height: 20px;" class="jd-truncate-with-ellipsis" search-result="{{result.comp_name}}" search-key="{{searchTerm}}" jd-search-highlight>
+					</div>
+				</span>
+			</div>
+			<div style="color:#777;text-transform: uppercase;font-size: 10px;">
+				<div class="" ng-show="result.city || result.area">
+					{{result.area}}<span>-</span>{{result.city}}
+				</div>
+			</div>
+			<div class="add-new-supr-icon icon-plus-circle">
+			</div>
+		</div>	
+	</script>
+	<script type="text/ng-template" id="directive/customSearchSupplier.htm">
+		<div class="position-result supplier-suggest" style="position: relative;">
+			<div class="company-name">
+				<span>
+					<div class="jd-truncate-with-ellipsis" style="overflow: hidden;color:#333;height: 20px;width:90%;" ng-show="!result.isFromJustdial" search-result="{{result.nickName}}" search-key="{{searchTerm}}" jd-search-highlight></div>
+					<div class="jd-truncate-with-ellipsis" style="overflow: hidden;color:#333;height: 20px;width:90%;" ng-show="result.isFromJustdial" search-result="{{result.companyName}}" search-key="{{searchTerm}}" jd-search-highlight>
+					</div>
+				</span>
+			</div>
+			<div style="color:#777;text-transform: uppercase;font-size: 10px;width:90%;">
+				<div class="jd-truncate-with-ellipsis" ng-show="result.vendorAddress[0].area || result.vendorAddress[0].city">
+					{{result.vendorAddress[0].area}}<span ng-show="result.vendorAddress[0].area">-</span>{{result.vendorAddress[0].city}}
+				</div>
+			</div>
+			<div class="add-new-supr-icon icon-plus-circle" ng-show="result.isFromJustdial">
+			</div>
+		</div>
+	</script>
+<style>
+.black-font{
+	color: #000 !important;
+}
+.middle-align{
+	line-height: 55px
+}
+.plus-button{
+	margin-right: 5px;
+	vertical-align: middle;
+	top: -2px;
+    position: relative;
+}
+.li-hover{
+    background-color: #F5FAFE;
+}
+.suggestion-list:hover{
+ background-color: #F5FAFE;
+ cursor:pointer;
+}
+.suggestion-list .jd-break-word.wrap_text:hover{
+ cursor:pointer;
+}
+
+.result-holder.autoSugest-ul{
+	padding-left: 0px;
+    list-style: none;
+    margin: 0;
+    max-height:300px;
+    overflow:auto; 
+    overflow-x: hidden;
+}
+.isIPad .manageList .hsnSac-autosuggest ul{
+	padding-bottom: 0px ;
+}
+.create-li.autoSugest-ul{
+	padding-left: 0px;
+    list-style: none;
+    margin: 0;
+	overflow: hidden;
+}
+.autosuggest-holder{
+    z-index: 40;
+    position: absolute;
+    background-color: white;
+    border: none;
+    width: 100%;
+    color: #333333;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.20);
+	border-radius: 10px;
+}
+.create-li:hover{
+	/*min-height: 55px;*/
+	cursor: pointer;
+}
+.search-auto-suggest .remove-selected-item:hover{
+	color: #afafaf;
+}
+.search-auto-suggest .remove-selected-item{
+	color: #ccc;
+	font-size: 20px;
+	position: absolute;
+    right: 14px;
+    cursor: pointer;
+    z-index: 2;
+    top: 7px;
+}
+.create-li .create-text{
+	color: #0086FF;
+}
+.create-li.li-hover .create-text{
+	color:#0086FF;
+}
+.create-li.li-hover .black-font{
+	color:#000;
+}
+/* local template*/
+.position-result{
+    padding: 5px 0px 5px 10px;
+}
+.position-result > div:first-child{
+	height: 23px;
+}
+#addProductDiv #supplierSelectionModal .border-bottom::after{
+	    width: 100%;
+	    left: 0px
+}
+.search-textbox{
+	padding-left: 28px;
+}
+.search-icon{
+    position: absolute;
+    z-index: 3;
+    top: 7px;
+    left: 5px;
+}
+.create-field{
+	max-width:92%;
+	display:inline-block;
+	vertical-align:bottom;
+}
+.shadow-grey{
+	box-shadow: 0px -3px 18px #dedede;
+}
+.paddingR5{
+	padding-right:5px;
+}
+.paddingL20{
+	padding-left:20px;
+}
+
+</style>
+
+<!--------------------------------------------- search autosugest END  ------------------------------------------------------>
+
+<!--------------------------------------------- supplier selection START  ------------------------------------------------------>
+<script id="directive/supplierSelection.htm" type="text/ng-template">
+
+<div class="modal fade" id="supplierSelectionModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <div>
+                        <button type="button" class="close cancelBtn" ng-click="modalButtonClick()" tabindex="15000"><i class="icon-cross"></i></button>
+                        <h3 class="modal-title font-thin font-20 jd-color-inherit">
+                        		<span ng-show="isSupplierSelectionShow">Select Supplier for {{productName}}</span>
+                        		<span ng-hide="isSupplierSelectionShow">Does All Products of "{{field.name}}" are supplied By..</span>
+                        	</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="border-bottom check-all">
+                <div class="col-xs-1 jd-padding-right-0 checkbox-width"><input type="checkbox" ng-model="allSelected"  id="selectAllVendor" ng-change="chackBoxSelction(true,allSelected)"></div>All Supplier Selected
+                <div class="pull-right paddingR15"><span ng-show="isBrand">Brand</span><span ng-hide="isBrand">Manufacturer</span> : {{field.name}}</div>
+            </div>
+            <div class="modal-body">
+	                <div class="row outlet-list-holder jd-web-list-item" ng-repeat="supplier in newSuppliers" ng-class="{'border-bottom':!$last,'top-15':$first}" ng-show="isSupplierSelectionShow || (!isSupplierSelectionShow && supplier.noAssociatedYet)">
+	                    <div class="col-xs-1 jd-text-left checkbox-width jd-padding-right-0">
+	                        <input type="checkbox" ng-model="supplier.isSelected" ng-change="chackBoxSelction(false,supplier.isSelected)">
+	                    </div>
+	                    <div class="col-xs-11 jd-padding-left-0">
+	                        <span  style="font-weight: bold;">{{supplier.companyName}}</span>
+	                    </div>
+	                    <div class="col-xs-1"></div>
+	                    <div class="col-xs-11 jd-padding-left-0">
+	                    	<div>
+	                    		<span ng-show="supplier.vendorAddress.contactPersonName">{{supplier.vendorAddress.contactPersonName}}</span>
+	                    		<span ng-show="supplier.phoneNumber">{{supplier.phoneNumber}}</span>
+	                    	</div>
+	                        <div>
+	                        	<span ng-show="supplier.vendorAddress.addressline1">{{supplier.vendorAddress.addressline1}},</span>
+	                        	<span ng-show="supplier.vendorAddress.city"> {{supplier.vendorAddress.city}}</span>
+	                        	<span ng-show="supplier.vendorAddress.city && supplier.vendorAddress.pincode"> - {{supplier.vendorAddress.pincode}},</span>
+	                        	<span ng-show="supplier.vendorAddress.state"> {{supplier.vendorAddress.state}},</span>
+	                        	<span> {{supplier.vendorAddress.country}}</span>.
+	                        </div>
+	                    </div>
+	                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 5px;">
+                <button class="btn jd-btn-primary pull-left"  ng-click="modalButtonClick()"><span ng-show="isSupplierSelectionShow">Cancel</span><span ng-hide="isSupplierSelectionShow">No</span></button>
+                <button class="btn jd-btn-primary pull-right" ng-click="modalButtonClick(true)" ><span ng-show="isSupplierSelectionShow">Associate to Product</span><span ng-hide="isSupplierSelectionShow">Yes</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</script>
+<!--------------------------------------------- supplier selection END  ------------------------------------------------------>
+
+
+<!--------------------------------------------- repetitive repeat START  ------------------------------------------------------>
+
+<script id="directive/repetitiveRepeat.htm" type="text/ng-template">
+	<div ng-include="/mpstatic/jd-angular/client/templates/common/repetitive-template.htm">
+		<!-- <filter-slider options="glbl.filterSliderOptions" ng-if="options.isManageProductCategory"></filter-slider>
+		<div class="repeat-seo" ng-if="options.isManageProductCategory">
+			<jd-seo options="glbl.seoSliderOptions" global="global"></jd-seo>
+		</div>
+		<ul class="repetitive-repeat jd-product-group-tree {{templateType}}" style="list-style-type:none;padding-left:0">
+		<ng-include src="templateUrl"></ng-include>
+		</ul> -->
+	</div>
+</script>
+
+<!--------------------------------------------- repetitive repeat END  ------------------------------------------------------>
+
+<script type="text/ng-template" id="directive/hsnAutosuggestion.htm">
+	 <div class="popover bottom autosuggestion-holder jd-font-roboto" ng-class="{show: row.showHsnSuggestions && hsnResults.length}" ng-style="{width: hsnFieldWidth + 'px', top: offsetTop + 'px'}">
+		<div class="arrow"></div>
+		<div class="hsn-autosuggestion" ng-show="row.showHsnSuggestions" jd-infinite-scroll options="infiniteScrollHsnSuggestion"  ng-style="{right: (hsnFieldWidth/2) - 300 + 'px'}">
+			<div class="autosuggest-list-header" ng-show="hsnResults">
+				<div class="hsn-sac-name-heading">
+					HSN / SAC Details
+				</div>
+				<div class="hsn-sac-rate-heading">
+					Tax Rate
+				</div>
+			</div>
+			<div class="list-item-holder" jd-autoscroll-handler current-index="hsnSacSearchOptions.currentIndex">
+				<div ng-repeat="hsn in hsnResults">
+					<div class="hsn-list-item" ng-mousedown="hsnSacSearchOptions.onListItemSelect(hsn)">
+						<div class="hsn-container">
+							<div class="hsn-detail heading">
+								<div search-result="{{hsn.hsn_code}}" search-key="{{hsnSacSearchOptions.row.hsnSacNo}}" jd-search-highlight></div>
+								<div class="hsn-rate">
+									{{(hsn.gst || "NIL") + (hsn.gst?"%":"")}}
+								</div>
+							</div>
+							<div class="hsn-detail" style="width: 92%;">
+								<div search-result="{{hsn.commodity}}" search-key="{{hsnSacSearchOptions.row.hsnSacNo}}" jd-search-highlight style="text-transform: uppercase;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="invalid-hsn popover bottom fade in jd-font-roboto" ng-class="{'show': row.invalidHSN}" ng-style="{width: hsnFieldWidth + 'px', top: offsetTop + 'px'}">
+		<div class="arrow"></div>
+		<div class="popover-content" ng-style="{right: (hsnFieldWidth/2) - 75 + 'px'}">
+			Invalid HSN/SAC Code
+		</div>
+	</div>
+	<div class="placeholder-hsn popover bottom fade in jd-font-roboto" ng-class="{'show': row.hsnPlaceholder}" ng-style="{width: hsnFieldWidth + 'px', top: offsetTop + 'px'}">
+		<div class="arrow"></div>
+		<div class="popover-content" ng-style="{right: (hsnFieldWidth/2) - 160 + 'px'}">
+			Start typing HSN / SAC Code or search by Product Type
+		</div>
+	</div>
+</script>
+
+
+<script type="text/ng-template" id="directive/staffMemberAutoSuggest.htm">
+	<div class="customer-suggestion-li">
+		<p class="jd-break-word" style="width:100%">
+			<span class="autosuggest-span" search-result="{{result.name}}" search-key="{{searchTerm}}" jd-search-highlight></span>
+		</p>
+	</div>
+</script>
+<script type="text/ng-template" id="directive/servicesAutoSuggest.htm">
+	<div class="customer-suggestion-li">
+		<div class="">
+			<p class="jd-break-word" style="width:100%">
+				<span class="autosuggest-span" search-result="{{result.productName}}" search-key="{{searchTerm}}" jd-search-highlight></span>
+			</p>
+		</div>
+	</div>
+</script>
+<script type="text/ng-template" id="directive/productSuggestions.htm">
+	<div class="product-list-item">
+		<div jd-load-image data-path="{{result.imageUrl}}" data-dimension="100X100" data-height="32" data-width="32" ng-controller="jdLoadImageController" class="pull-left imageDisp marginR10"></div>
+		<div class="product-detail">
+			<span class="autosuggest-span" search-result="{{result.productName}}" search-key="{{searchTerm}}" jd-search-highlight></span>
+			<span>{{result.contentPerPiece}} {{result.unitPerPiece}}</span>
+		</div>
+	</div>
+</script>

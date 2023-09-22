@@ -1,0 +1,29 @@
+<div>
+    <div class="voice-search-area" style = 'display: none'>
+        <div class="voice-status-txt-area">
+            <div class="font20 jd-font-roboto-light voice-txt-lbl">{{voiceSearchOptions.statusTodisplay}}</div>
+            <span class="icon-HDRback icon-cloe-style" ng-click="showHideVoiceSearchArea('cancel')" ng-class="{'disabled':options.showLoader}"></span>
+        </div>
+        <div class="voice-ripple-area pos-rel clearfix">
+            <div class="col-xs-12 mic-div">
+                <div class="mic-div-container" ng-class="{'show-animation':voiceSearchOptions.status!='fail' &&voiceSearchOptions.status!='end'&&voiceSearchOptions.status!='success'}">
+                    <div class="ripple-fake-sub-div">
+                        <div class="ripple-fake-div">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="mic-icon-holder-inner" ng-click="voiceSearchOptions.restartVoiceSearch()" ng-hide="voiceSearchOptions.showLoader">
+                            <i class="icon-microphone icon-mic-style"></i>
+                        </div>
+                        <div class="mic-icon-holder-inner" ng-show="options.showLoader">
+                            <img src="https://image1.jdomni.in/jdomni_email/blue_bg_loading_spinner_2011192004.gif" class="voice-loader-style">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id = "whiteOverlayVoiceSearch" class = "white-background"></div>
+</div>

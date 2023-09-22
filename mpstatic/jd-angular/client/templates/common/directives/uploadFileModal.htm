@@ -1,0 +1,54 @@
+<div id="jdMobileUploadImageModal" class="modal fade jdMobileUploadImageModal" role="dialog">
+	<div class="modal-vertical-alignment-helper">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+
+	      		<div class="modal-header text-center" ng-show="options.title">
+	      			<span ng-bind="options.title"></span>
+	      		</div>
+
+	      		<div class="modal-body">
+
+	      			<div class="icons-container total-{{items.length}}-icons">
+	      				<div ng-repeat="item in items" class="list-item" ng-class="{'ng-hide': !!item.hideItem}" ng-click="listItemClick($event, item)">
+	      					<div class="item-icon">
+	      						<i class="{{item.iconClass}}"></i>
+	      					</div>
+	      					<span> {{item.name}} </span>
+	      				</div>
+
+	      				<div class="list-item" ng-show="options.showDeleteImgOption" ng-click="deleteIconClick()">
+	      					<div class="item-icon">
+	      						<i class="icon-trash"></i>
+	      					</div>
+	      					<span> Delete </span>
+	      				</div>
+	      			</div>
+	      		</div>
+	      		<!-- <div class="modal-footer text-center">
+	      			<div  ng-click="onCloseBtnClick()" >
+	      				<span>Cancel</span>
+                    </div >
+	      		</div> -->
+	    	</div>
+	   	</div>
+   	</div>
+   	<div class="animate-section-overlay" ng-show="showSlider"></div>
+    <div jd-animate-section="right" class="animate-slider animate-div-right upload-img-url" start-animation="showSlider" slide-time={{slideTime}} slider-width={{sliderWidth}}>
+    	<div class="jd-animate slider-shadow">
+            <div class="slider-content">
+		    	<div class="jd-mobile-header slider-header" ng-hide="isMobile">
+		       		<i class="icon-pagination-left cursor-pointer" ng-click="back()" ></i>
+					<span class="modal-title center-content" ng-bind="headerTitle"></span>
+				</div>
+		   		<div class="input-content" ng-show="urlMode">
+			        <label class="paddingT20 margin0 color-grey">Paste the web link</label>
+			        <input type="text" placeholder="http://" class="form-control text-box-style" ng-model="inputURL" >
+		        </div>
+		        <div style="width:100%;bottom: 0 ;position:absolute;" ng-show="urlMode">
+		            <jd-common-footer options="saveUrlFooterOptions"></jd-common-footer>
+		        </div>
+       		</div>
+       	</div>
+    </div>
+</div>

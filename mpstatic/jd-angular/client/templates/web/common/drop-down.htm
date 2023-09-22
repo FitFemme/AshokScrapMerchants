@@ -1,0 +1,32 @@
+<div class="pos-rel drop-down" id="{{dropDownId}}">
+      <div ng-click="showOrHideDropDown($event)" tabindex="{{tabIndex || 0}}"  ng-keydown ="moveUpOrDown($event)" ng-blur = "callOnBlur($event)" class="drop-down-div" jd-set-focus="setFocus.isFocus" set-focus-timeout="focusTimeout" set-false="true" ng-focus="callOnFocus($event)" ng-class="{'disabled':isDisabled}">
+        <input class="form-control drop-down-input jd-text-input overflow-ellipsis"  placeholder="{{placeholder}}"  ng-model="selectedItem" ng-readonly="!customEntryMode" ng-change="onCustomValChange()" maxlength="{{maxlength}}" ng-class="{'activeElem':showSuggestions , 'disabled':!customEntryMode,'input-template-present':customInputTemplate}" ng-disabled="!customEntryMode"/>
+          <span ng-hide="customEntryMode" class="font16 icon-down-style hide-arrow" ng-class="{'icon-pagination-right': iconRight, 'icon-pagination-down': !iconRight}"></span>
+          <span ng-class="{'show-cross-icon icon-cross-circle remove-icon font16 ':customEntryMode}" ng-click="removeCustomEntry($event)"></span>
+          <div  class="overlay" ng-if="showSuggestions && overlay"></div>
+          <div ng-class="{'full-screen-suggestions': showSuggestions && overlay,'list-hidden':!showSuggestions}" ng-show="showSuggestions" class="scroll-holder">
+            <ul class="jd-autosuggest drop-down-ul transparent-scrollbar show" ng-class="{'suggestion-open':showSuggestions}">
+              <div class="list-header-name" ng-show="listHeaderName">
+                <div class="list-header-name-label">{{listHeaderName}}</div>
+                <i class="icon-close-thin close" ng-click="showOrHideDropDown('',true)"/>  
+              </div>
+              <div ng-show="listHeaderName" class="section-separator"></div>
+              <li class="drop-down-li" ng-repeat="item in optionList | filter:(!!applicableTaxCode && filterOption)" ng-class="{'jd-li-selected':obj.index === $index}"  ng-click="selectItem(item,$index,false,$event)" ng-show="isItemVisible(item)"> 
+                  <div class="pos-rel">
+                    <span class="child-header text-ellipsis" ng-show="customTemplate" ng-include="customTemplate"></span>
+                    <div ng-hide="customTemplate">
+                      <span ng-class = "item.iconClass ? item.iconClass : 'icon-clickNew font16'" ng-show="obj.index == $index || item.iconClass">
+                      </span>
+                      <span ng-if="obj.labelKey" class="inline label-style">
+                        {{item[labelKey]}}
+                      </span>
+                      <span ng-if="!obj.labelKey" class="inline label-style">{{item}}</span>
+                    </div>
+                  </div>
+              </li>
+            </ul>
+          </div>
+          <div ng-show="customInputTemplate" ng-include="customInputTemplate" class="custom-input-temp-holder"></div>
+      </div>
+</div>
+  
